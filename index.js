@@ -49,3 +49,4 @@ test(data, 'Mozilla API', locate.mozilla);
 test(data, 'OpenCellID API', locate.opencellid);
 test(data, 'CellLocation.com API', locate.celllocation);
 test(data, 'GPSspg.com API', locate.gpsspg);
+test(data, 'HaoService.com API', locate.haoservice);
