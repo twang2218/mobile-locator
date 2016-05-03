@@ -4,7 +4,10 @@ const Geolocation = require('./lib');
 // {
 //     "keys": {
 //         "google_api_key": "<YOUR_GOOGLE_API_KEY>",
-//         "opencellid_key": "<YOUR_OPENCELLID_KEY>"
+//         "mozilla_api_key": "<YOUR_MOZILLA_KEY>"
+//         "opencellid_key": "<YOUR_OPENCELLID_KEY>",
+//         "gpsspg_oid": "<YOUR_GPSSPG_OID>",
+//         "gpsspg_key": "<YOUR_GPSSPG_KEY>"
 //     }
 // }
 const config = require('./config');
@@ -13,7 +16,7 @@ const locate = new Geolocation(config.keys);
 
 const data = {
   mcc: 460,
-  mnc: 1,
+  mnc: 0,
   lac: 4219,
   cid: 20925,
 };
@@ -27,9 +30,10 @@ function onResponse(error, location) {
     console.log();
     console.log(
       `https://www.google.com/maps/@${location.latitude},${location.longitiude},${location.accuracy}m/data=!3m1!1e3`);
+    console.log(`https://www.bing.com/maps/?v=2&cp=${location.latitude}~${location.longitiude}&style=h&lvl=15`);
     console.log(
       `http://www.google.cn/maps/@${location.latitude},${location.longitiude},${location.accuracy}m/data=!3m1!1e3`);
-    console.log(`https://www.bing.com/maps/?v=2&cp=${location.latitude}~${location.longitiude}&style=h&lvl=12`);
+    console.log(`https://www.bing.com/ditu/?v=2&cp=${location.latitude}~${location.longitiude}&style=h&lvl=15`);
   }
 }
 
@@ -44,3 +48,4 @@ test(data, 'Google API', locate.google);
 test(data, 'Mozilla API', locate.mozilla);
 test(data, 'OpenCellID API', locate.opencellid);
 test(data, 'CellLocation.com API', locate.celllocation);
+test(data, 'GPSspg.com API', locate.gpsspg);
