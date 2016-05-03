@@ -1,13 +1,15 @@
+const Geolocation = require('./lib');
+
 // `config.json`:
 // {
-//     "google_api_key": "<YOUR_GOOGLE_API_KEY>"
+//     "keys": {
+//         "google_api_key": "<YOUR_GOOGLE_API_KEY>",
+//         "opencellid_key": "<YOUR_OPENCELLID_KEY>"
+//     }
 // }
 const config = require('./config');
 
-const Geolocation = require('./lib');
-const locate = new Geolocation({
-  google_api_key: config.google_api_key,
-});
+const locate = new Geolocation(config.keys);
 
 const data = {
   mcc: 460,
@@ -16,15 +18,25 @@ const data = {
   cid: 20925,
 };
 
-locate.google.locate(data, (error, location) => {
+function onResponse(error, location) {
   if (error) {
     console.error(error);
   } else {
-    console.log(location);
-    console.log(
-      `https://www.google.com/maps/@${location.latitude},${location.longitiude},1000m/data=!3m1!1e3`
-    );
+    console.log();
+    console.log(JSON.stringify(location));
+    console.log();
+    console.log(`https://www.google.com/maps/@${location.latitude},${location.longitiude},1000m/data=!3m1!1e3`);
     console.log(`http://www.google.cn/maps/@${location.latitude},${location.longitiude},1000m/data=!3m1!1e3`);
     console.log(`https://www.bing.com/maps/?v=2&cp=${location.latitude}~${location.longitiude}&style=h&lvl=12`);
+    console.log();
   }
+}
+
+locate.google.locate(data, (error, location) => {
+  console.log('<Google API>');
+  onResponse(error, location);
+});
+locate.opencellid.locate(data, (error, location) => {
+  console.log('<OpenCellID API>');
+  onResponse(error, location);
 });
