@@ -28,15 +28,20 @@ function onResponse(error, location) {
     console.log(`https://www.google.com/maps/@${location.latitude},${location.longitiude},1000m/data=!3m1!1e3`);
     console.log(`http://www.google.cn/maps/@${location.latitude},${location.longitiude},1000m/data=!3m1!1e3`);
     console.log(`https://www.bing.com/maps/?v=2&cp=${location.latitude}~${location.longitiude}&style=h&lvl=12`);
-    console.log();
   }
 }
 
 locate.google.locate(data, (error, location) => {
-  console.log('<Google API>');
+  console.log('\n<Google API>');
   onResponse(error, location);
 });
+
 locate.opencellid.locate(data, (error, location) => {
-  console.log('<OpenCellID API>');
+  console.log('\n<OpenCellID API>');
+  onResponse(error, location);
+});
+
+locate.celllocation.locate(data, (error, location) => {
+  console.log('\n<CellLocation.com API>');
   onResponse(error, location);
 });
