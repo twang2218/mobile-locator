@@ -14,13 +14,6 @@ const config = require('./config');
 
 const locate = new Geolocation(config.keys);
 
-const data = {
-  mcc: 460,
-  mnc: 0,
-  lac: 4219,
-  cid: 20925,
-};
-
 function onResponse(error, location) {
   if (error) {
     console.error(error);
@@ -44,6 +37,14 @@ function test(cellInfo, tag, service) {
   });
 }
 
+const data = {
+  mcc: process.argv[2] ? process.argv[2] : 460,
+  mnc: process.argv[3] ? process.argv[3] : 0,
+  lac: process.argv[4] ? process.argv[4] : 4219,
+  cid: process.argv[5] ? process.argv[5] : 20925,
+};
+
+console.log(data);
 test(data, 'Google API', locate.google);
 test(data, 'Mozilla API', locate.mozilla);
 test(data, 'OpenCellID API', locate.opencellid);
