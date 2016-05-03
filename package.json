@@ -1,21 +1,20 @@
 {
-  "name": "cell-location",
-  "version": "0.1.0",
-  "description": "Get geolocation information based on Cell base station data",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "node test/test.js"
-  },
-  "author": "Tao Wang <twang2218@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "eslint": "^2.9.0",
-    "eslint-config-airbnb": "^8.0.0",
-    "eslint-plugin-import": "^1.6.1"
-  },
-  "dependencies": {
-    "lodash": "^4.11.2",
-    "request": "^2.72.0"
-  }
+    "name": "cell-locator",
+    "version": "0.1.0",
+    "description": "Locate geolocation information based on Cell base station data",
+    "main": "lib/index.js",
+    "scripts": {
+        "test": "node test/test.js"
+    },
+    "author": "Tao Wang <twang2218@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "eslint": "^2.9.0",
+        "eslint-config-airbnb": "^8.0.0",
+        "eslint-plugin-import": "^1.6.1"
+    },
+    "dependencies": {
+        "lodash": "^4.11.2",
+        "request": "^2.72.0"
+    }
 }
