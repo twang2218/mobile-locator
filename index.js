@@ -25,23 +25,22 @@ function onResponse(error, location) {
     console.log();
     console.log(JSON.stringify(location));
     console.log();
-    console.log(`https://www.google.com/maps/@${location.latitude},${location.longitiude},1000m/data=!3m1!1e3`);
-    console.log(`http://www.google.cn/maps/@${location.latitude},${location.longitiude},1000m/data=!3m1!1e3`);
+    console.log(
+      `https://www.google.com/maps/@${location.latitude},${location.longitiude},${location.accuracy}m/data=!3m1!1e3`);
+    console.log(
+      `http://www.google.cn/maps/@${location.latitude},${location.longitiude},${location.accuracy}m/data=!3m1!1e3`);
     console.log(`https://www.bing.com/maps/?v=2&cp=${location.latitude}~${location.longitiude}&style=h&lvl=12`);
   }
 }
 
-locate.google.locate(data, (error, location) => {
-  console.log('\n<Google API>');
-  onResponse(error, location);
-});
+function test(cellInfo, tag, service) {
+  service.locate(cellInfo, (error, location) => {
+    console.log(`\n[${tag}]`);
+    onResponse(error, location);
+  });
+}
 
-locate.opencellid.locate(data, (error, location) => {
-  console.log('\n<OpenCellID API>');
-  onResponse(error, location);
-});
-
-locate.celllocation.locate(data, (error, location) => {
-  console.log('\n<CellLocation.com API>');
-  onResponse(error, location);
-});
+test(data, 'Google API', locate.google);
+test(data, 'Mozilla API', locate.mozilla);
+test(data, 'OpenCellID API', locate.opencellid);
+test(data, 'CellLocation.com API', locate.celllocation);
