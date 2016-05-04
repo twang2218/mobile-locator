@@ -24,7 +24,7 @@ Create the location engine by given name and options.
  `mozilla` | `key`: Mozilla API key
  `opencellid` | `key`: OpenCellID API key
  `yandex` | `key`: Yandex API key
- `cellocation` |  
+ `cellocation` | `system`(optional): Coordinate system: `wgs84`, `gcj02`, `bd09`.
  `gpsspg` | `key`: GPSspg API key, `oid`: GPSspg OID
  `haoservice` | `key`: HaoService API key
 
