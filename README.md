@@ -14,12 +14,12 @@ Currently, the following APIs are implemented:
 
 # API
 
-## .createEngine(name, options)
+## _mobileLocator_.createEngine(name, options)
 
 Create the location engine by given name and options.
 
 *Name*  | *Options*  
---|--
+--- | ---
  `google` | `key`: Google API key
  `mozilla` | `key`: Mozilla API key
  `opencellid` | `key`: OpenCellID API key
@@ -28,9 +28,20 @@ Create the location engine by given name and options.
  `gpsspg` | `key`: GPSspg API key, `oid`: GPSspg OID
  `haoservice` | `key`: HaoService API key
 
-## .locate(info, callback)
+## _engine_.locate(info, callback)
 
 `info` should contain cell information, including `mnc`, `mcc`, `lac` and `cid`.
+
+The `callback` is a function with 2 arguments: `error` and `location`. `error` should be `null` if everything is working, other wise the error message will be in the `error` argument.
+
+`location` is an object contains following properties:
+
+*Property*  | *Description*  
+--- | ---
+ `longitude` | Longitude
+ `latitude` | Latitude
+ `accuracy` | The accuracy range of the given position
+ `address`(optional) | For some API, this property contains the human readable address line.
 
 # Usage
 
@@ -52,4 +63,12 @@ engine.locate({
   console.log(location);
 });
 
+```
+
+The output would be:
+
+```javascript
+{ longitude: 116.46679499999998,
+  latitude: 39.9910226,
+  accuracy: 606 }
 ```
