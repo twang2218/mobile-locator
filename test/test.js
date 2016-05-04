@@ -1,4 +1,4 @@
-const cl = require('../lib');
+const cl = require('../src');
 
 // `config.json`:
 // {
