@@ -4,6 +4,13 @@ const Base = require('./base');
 const API = 'http://api.cellocation.com/cell/';
 
 class Cellocation extends Base {
+  constructor(options) {
+    super();
+    //  Coordinate System
+    //  {'wgs84', 'gcj02', 'bd09'}
+    this.system = _.has(options, 'system') ? options.system : 'wgs84';
+  }
+
   getRequestSettings(cell) {
     return {
       uri: API,
@@ -13,13 +20,14 @@ class Cellocation extends Base {
         mnc: cell.mnc,
         lac: cell.lac,
         ci: cell.cid,
+        coord: this.system,
         output: 'json',
       },
     };
   }
 
   validate(body) {
-    return body.errcode === 0;
+    return (body.errcode === 0);
   }
 
   parseLocation(body) {

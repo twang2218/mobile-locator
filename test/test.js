@@ -24,6 +24,9 @@ function onResponse(error, location) {
     console.log(
       `\thttp://www.google.cn/maps/@${location.latitude},${location.longitude},${location.accuracy}m/data=!3m1!1e3`);
     console.log(`\thttps://www.bing.com/ditu/?v=2&cp=${location.latitude}~${location.longitude}&style=h&lvl=15`);
+    console.log(
+      `\thttp://api.map.baidu.com/marker?location=${location.latitude},${location.longitude}&title=净水设备&content=${location.address}&output=html&autoOpen=true`
+    );
   }
 }
 
@@ -59,7 +62,9 @@ test(data, 'yandex', {
   key: config.yandex_key,
 });
 
-test(data, 'cellocation');
+test(data, 'cellocation', {
+  system: 'bd09',
+});
 
 test(data, 'gpsspg', {
   oid: config.gpsspg_oid,
