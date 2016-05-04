@@ -1,4 +1,4 @@
-const cl = require('../src');
+const ml = require('../src');
 
 // `config.json`:
 // {
@@ -28,7 +28,7 @@ function onResponse(error, location) {
 }
 
 function test(cellInfo, name, options) {
-  cl.createService(name, options)
+  ml.createEngine(name, options)
     .locate(cellInfo, (error, location) => {
       console.log(`\n[${name}]`);
       onResponse(error, location);
@@ -59,7 +59,7 @@ test(data, 'yandex', {
   key: config.yandex_key,
 });
 
-test(data, 'celllocation');
+test(data, 'cellocation');
 
 test(data, 'gpsspg', {
   oid: config.gpsspg_oid,

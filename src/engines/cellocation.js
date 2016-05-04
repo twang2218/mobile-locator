@@ -3,7 +3,7 @@ const Base = require('./base');
 
 const API = 'http://api.cellocation.com/cell/';
 
-class CellLocation extends Base {
+class Cellocation extends Base {
   getRequestSettings(cell) {
     return {
       uri: API,
@@ -37,4 +37,4 @@ class CellLocation extends Base {
 }
 
 //  Exports
-module.exports = CellLocation;
+module.exports = Cellocation;
