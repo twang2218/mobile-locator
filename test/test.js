@@ -2,15 +2,13 @@ const cl = require('../lib');
 
 // `config.json`:
 // {
-//     "keys": {
-//         "google_api_key": "<YOUR_GOOGLE_API_KEY>",
-//         "mozilla_api_key": "<YOUR_MOZILLA_KEY>"
-//         "opencellid_key": "<YOUR_OPENCELLID_KEY>",
-//         "yandex_key": "<YOUR_YANDEX_KEY>",
-//         "gpsspg_oid": "<YOUR_GPSSPG_OID>",
-//         "gpsspg_key": "<YOUR_GPSSPG_KEY>",
-//         "haoservice_key": "<YOUR_HAOSERVICE_KEY>"
-//     }
+//   "google_api_key": "<YOUR_GOOGLE_API_KEY>",
+//   "mozilla_api_key": "<YOUR_MOZILLA_KEY>"
+//   "opencellid_key": "<YOUR_OPENCELLID_KEY>",
+//   "yandex_key": "<YOUR_YANDEX_KEY>",
+//   "gpsspg_oid": "<YOUR_GPSSPG_OID>",
+//   "gpsspg_key": "<YOUR_GPSSPG_KEY>",
+//   "haoservice_key": "<YOUR_HAOSERVICE_KEY>"
 // }
 const config = require('./config');
 
@@ -46,28 +44,28 @@ const data = {
 
 console.log(data);
 test(data, 'google', {
-  key: config.keys.google_api_key,
+  key: config.google_api_key,
 });
 
 test(data, 'mozilla', {
-  key: config.keys.mozilla_api_key,
+  key: config.mozilla_api_key,
 });
 
 test(data, 'opencellid', {
-  key: config.keys.opencellid_key,
+  key: config.opencellid_key,
 });
 
 test(data, 'yandex', {
-  key: config.keys.yandex_key,
+  key: config.yandex_key,
 });
 
 test(data, 'celllocation');
 
 test(data, 'gpsspg', {
-  oid: config.keys.gpsspg_oid,
-  key: config.keys.gpsspg_key,
+  oid: config.gpsspg_oid,
+  key: config.gpsspg_key,
 });
 
 // test(data, 'haoservice', {
-//   key: config.keys.haoservice_key,
+//   key: config.haoservice_key,
 // });
