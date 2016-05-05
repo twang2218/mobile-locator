@@ -45,6 +45,66 @@ The `callback` is a function with 2 arguments: `error` and `location`. `error` s
 
 # Usage
 
+## Command-line Interface
+
+Usage
+
+```bash
+➜  ~ mobile-locator -h
+
+Usage: mobile-locator [options]
+
+Locate geolocation information based on Cell base station data
+
+Options:
+
+  -h, --help                   output usage information
+  -V, --version                output the version number
+  -c, --cell <cell>            Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"
+  -e, --engine <engine>        Geolocation service engine. {google, mozilla, opencellid, yandex, cellocation, gpsspg, haoservice}. Default: google
+  -a, --arguments <arguments>  Arguments for geolocation engine. e.g. "key:XXX,oid:123".
+  -m, --map <map>              Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}.
+  -v, --verbose                Verbose output.
+
+Examples:
+
+  $ mobile-locator -a "key:XXX" -c 460,0,4219,20925
+  $ mobile-locator -e cellocation -a "system:bd09" -m baidu -c 460,0,4219,20925
+
+```
+
+By default, the Google Geolocation engine will be used.
+
+```bash
+➜  ~ mobile-locator -a "key:GOOGLE_API_KEY" -c 460,0,4219,20925
+{"longitude":116.46679499999998,"latitude":39.9910226,"accuracy":606}
+```
+
+With verbose option:
+
+```bash
+➜  ~ mobile-locator -a "key:AIzaSyAL2sfTLqUv9Rb3ercbtuu__PG2pS_4eDo" -c 460,0,4219,20925 -v
+Geolocation engine: "google"
+Cell: {"mcc":"460","mnc":"0","lac":"4219","cid":"20925"}
+Location: {"longitude":116.46679499999998,"latitude":39.9910226,"accuracy":606}
+```
+
+More complex example:
+
+ - Use `cellocation` engine;
+ - Choose `bd09` coordinate system;
+ - Show Baidu map url for given coordinate result;
+ - Verbose output.
+
+```bash
+➜  ~ mobile-locator -e cellocation -a 'system:bd09' -m baidu -v -c 460,0,4219,20925
+Geolocation engine: "cellocation"
+Cell: {"mcc":"460","mnc":"0","lac":"4219","cid":"20925"}
+Location: {"longitude":"116.479653","latitude":"39.997967","accuracy":"100","address":"北京市朝阳区望京街道望京园402号楼;广顺南大街与阜安西路路口东北109米"}
+Map url: http://api.map.baidu.com/marker?location=39.997967,116.479653&title=_&content=北京市朝阳区望京街道望京园402号楼;广顺南大街与阜安西路路口东北109米&output=html&autoOpen=true
+```
+## Use the library
+
 ```javascript
 const ml = require('mobile-locator');
 

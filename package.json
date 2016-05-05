@@ -3,6 +3,7 @@
     "version": "0.2.0",
     "description": "Locate geolocation information based on Cell base station data",
     "main": "src/index.js",
+    "bin": "src/cli.js",
     "scripts": {
         "test": "node test/test.js"
     },

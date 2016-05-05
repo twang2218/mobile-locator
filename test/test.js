@@ -1,4 +1,5 @@
 const ml = require('../src');
+const map = require('../src/mapservice');
 
 // `config.json`:
 // {
@@ -17,16 +18,12 @@ function onResponse(error, location) {
     console.error(error);
   } else {
     console.log(`${JSON.stringify(location)}`);
-    console.log(
-      `\thttps://www.google.com/maps/@${location.latitude},${location.longitude},${location.accuracy}m/data=!3m1!1e3`
-    );
-    console.log(`\thttps://www.bing.com/maps/?v=2&cp=${location.latitude}~${location.longitude}&style=h&lvl=15`);
-    console.log(
-      `\thttp://www.google.cn/maps/@${location.latitude},${location.longitude},${location.accuracy}m/data=!3m1!1e3`);
-    console.log(`\thttps://www.bing.com/ditu/?v=2&cp=${location.latitude}~${location.longitude}&style=h&lvl=15`);
-    console.log(
-      `\thttp://api.map.baidu.com/marker?location=${location.latitude},${location.longitude}&title=净水设备&content=${location.address}&output=html&autoOpen=true`
-    );
+    console.log(map.format('google', location));
+    console.log(map.format('bing', location));
+    console.log(map.format('google.cn', location));
+    console.log(map.format('bing.cn', location));
+    console.log(map.format('openstreetmap', location));
+    console.log(map.format('baidu', location));
   }
 }
 
@@ -63,7 +60,7 @@ test(data, 'yandex', {
 });
 
 test(data, 'cellocation', {
-  system: 'bd09',
+  system: 'gcj02',
 });
 
 test(data, 'gpsspg', {
