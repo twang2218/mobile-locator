@@ -1,6 +1,6 @@
 {
     "name": "mobile-locator",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Locate geolocation information based on Cell base station data",
     "main": "src/index.js",
     "scripts": {
@@ -16,5 +16,8 @@
     "dependencies": {
         "lodash": "^4.11.2",
         "request": "^2.72.0"
-    }
+    },
+    "repository": "twang2218/mobile-locator",
+    "bugs": "https://github.com/twang2218/mobile-locator/issues",
+    "keywords": "mobile,locator,geolocation,cell,cell tower,base station,location,api,google,mozilla,opencellid,yandex,cellocation,gpsspg,haoservice"
 }
