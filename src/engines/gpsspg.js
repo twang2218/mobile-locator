@@ -8,6 +8,7 @@ class GPSspg extends Base {
     super();
     this.key = options.key;
     this.oid = options.oid;
+    this.system = options.system;
   }
 
   getRequestSettings(cell) {
@@ -21,7 +22,7 @@ class GPSspg extends Base {
         a: cell.lac,
         b: cell.cid,
         //  0:WGS84; 1:Google Maps; 2:Baidu Maps; 3:QQ Maps; 4:MapBar
-        to: 1,
+        to: this.system || 0,
         key: this.key,
         output: 'json',
       },

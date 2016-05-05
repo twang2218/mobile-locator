@@ -8,6 +8,7 @@ class HaoService extends Base {
   constructor(options) {
     super();
     this.key = options.key;
+    this.system = options.system;
   }
 
   getRequestSettings(cell) {
@@ -20,6 +21,7 @@ class HaoService extends Base {
         lac: cell.lac,
         cell_id: cell.cid,
         key: this.key,
+        type: this.system || 2,
         output: 'json',
       },
       json: true,

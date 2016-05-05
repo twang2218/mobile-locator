@@ -24,9 +24,9 @@ Create the location engine by given name and options.
  `mozilla` | `key`: Mozilla API key
  `opencellid` | `key`: OpenCellID API key
  `yandex` | `key`: Yandex API key
- `cellocation` | `system`(optional): Coordinate system: `wgs84`, `gcj02`, `bd09`.
- `gpsspg` | `key`: GPSspg API key, `oid`: GPSspg OID
- `haoservice` | `key`: HaoService API key
+ `cellocation` | `system`_(optional)_: Coordinate system: `wgs84`_(Default)_, `gcj02`, `bd09`.
+ `gpsspg` | `key`: GPSspg API key, <br> `oid`: GPSspg OID,<br> `system`_(optional)_: Coordinate system: `0`:wgs84_(Default)_; `1`:gcj02; `2`:bd09; `3`:QQ Maps; `4`:MapBar
+ `haoservice` | `key`: HaoService API key, <br> `system`_(optional)_: Coordinate system: `0`: gcj02; `1`:bd09; `2`:wgs84_(Default)_
 
 ## _engine_.locate(info, callback)
 
@@ -93,7 +93,7 @@ More complex example:
 
  - Use `cellocation` engine;
  - Choose `bd09` coordinate system;
- - Show Baidu map url for given coordinate result;
+ - Show Baidu map url for given coordinate;
  - Verbose output.
 
 ```bash
@@ -103,6 +103,7 @@ Cell: {"mcc":"460","mnc":"0","lac":"4219","cid":"20925"}
 Location: {"longitude":"116.479653","latitude":"39.997967","accuracy":"100","address":"北京市朝阳区望京街道望京园402号楼;广顺南大街与阜安西路路口东北109米"}
 Map url: http://api.map.baidu.com/marker?location=39.997967,116.479653&title=_&content=北京市朝阳区望京街道望京园402号楼;广顺南大街与阜安西路路口东北109米&output=html&autoOpen=true
 ```
+
 ## Use the library
 
 ```javascript
