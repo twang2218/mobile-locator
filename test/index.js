@@ -88,7 +88,7 @@ function checkEngine(name, options, cell, extra) {
 }
 
 describe('Geolocation Engine', function () {
-  this.timeout(5000);
+  this.timeout(10000);
 
   it('locator.createEngine()', () => {
     expect(locator.createEngine('google')).to.have.property('locate');
