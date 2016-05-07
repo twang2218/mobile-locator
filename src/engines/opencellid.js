@@ -1,3 +1,6 @@
+/* eslint strict:0 */
+'use strict';
+
 const _ = require('lodash');
 const Base = require('./base');
 

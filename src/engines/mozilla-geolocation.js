@@ -1,3 +1,6 @@
+/* eslint strict:0 */
+'use strict';
+
 const GoogleGeolocation = require('./google-geolocation');
 
 const API = 'https://location.services.mozilla.com/v1/geolocate';

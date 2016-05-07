@@ -1,3 +1,6 @@
+/* eslint strict:0 */
+'use strict';
+
 const locator = require('../src');
 const expect = require('chai').expect;
 const config = require('./config');

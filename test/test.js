@@ -1,3 +1,6 @@
+/* eslint strict:0 */
+'use strict';
+
 const ml = require('../src');
 const map = require('../src/mapservice');
 

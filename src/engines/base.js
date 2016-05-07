@@ -1,3 +1,6 @@
+/* eslint strict:0 */
+'use strict';
+
 const request = require('request');
 // request.debug = true;
 const _ = require('lodash');

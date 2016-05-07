@@ -1,3 +1,6 @@
+/* eslint strict:0 */
+'use strict';
+
 const GoogleGeolocation = require('./engines/google-geolocation');
 const MozillaGeolocation = require('./engines/mozilla-geolocation');
 const OpenCellID = require('./engines/opencellid');

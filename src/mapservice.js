@@ -1,3 +1,6 @@
+/* eslint strict:0 */
+'use strict';
+
 class MapServices {
   constructor() {
     this.services = [];
