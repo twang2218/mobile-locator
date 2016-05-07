@@ -5,7 +5,8 @@
     "main": "src/index.js",
     "bin": "src/cli.js",
     "scripts": {
-        "test": "istanbul cover _mocha test/index.js && istanbul-coveralls"
+        "test": "istanbul cover _mocha test/index.js",
+        "test-coveralls": "istanbul-coveralls"
     },
     "author": "Tao Wang <twang2218@gmail.com>",
     "license": "Apache 2.0",

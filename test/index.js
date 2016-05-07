@@ -87,7 +87,9 @@ function checkEngine(name, options, cell, extra) {
   });
 }
 
-describe('Geolocation Engine', () => {
+describe('Geolocation Engine', function () {
+  this.timeout(5000);
+
   it('locator.createEngine()', () => {
     expect(locator.createEngine('google')).to.have.property('locate');
     expect(locator.createEngine('mozilla')).to.have.property('locate');
@@ -123,16 +125,14 @@ describe('Geolocation Engine', () => {
   });
 
   //  Yandex
-  describe('Yandex', function testYandex() {
-    this.timeout(5000);
+  describe('Yandex', () => {
     checkEngine('yandex', {
       key: config.yandex_key,
     }, cells[4]);
   });
 
   //  Cellocation
-  describe('Cellocation', function testCellocation() {
-    this.timeout(5000);
+  describe('Cellocation', () => {
     checkEngine('cellocation', {
       system: 'wgs84',
     }, cells[0]);
@@ -145,8 +145,7 @@ describe('Geolocation Engine', () => {
   });
 
   //  GPSspg
-  describe.skip('GPSspg.com', function testGPSspg() {
-    this.timeout(5000);
+  describe.skip('GPSspg.com', () => {
     checkEngine('gpsspg', {
       oid: config.gpsspg_oid,
       key: config.gpsspg_key,
@@ -154,8 +153,7 @@ describe('Geolocation Engine', () => {
   });
 
   //  HaoService
-  describe.skip('HaoService.com', function testHaoService() {
-    this.timeout(5000);
+  describe.skip('HaoService.com', () => {
     checkEngine('haoservice', {
       key: config.haoservice_key,
     }, cells[0]);
