@@ -8,7 +8,7 @@
         "test": "mocha test/index.js"
     },
     "author": "Tao Wang <twang2218@gmail.com>",
-    "license": "MIT",
+    "license": "Apache 2.0",
     "devDependencies": {
         "chai": "^3.5.0",
         "eslint": "^2.9.0",

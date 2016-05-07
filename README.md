@@ -1,5 +1,31 @@
 # Mobile Locator
 
+[![NPM version][npm-version-image]][npm-url]
+[![MIT License][license-image]][license-url]
+[![Build Status][travis-image]][travis-url]
+[![Dependency Status][dependency-image]][dependency-url]
+[![Coverage Status][coverage-image]][coverage-url]
+[![NPM][npm-classy-badge-image]][npm-classy-badge-url]
+
+[license-image]: http://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat
+[license-url]: LICENSE.txt
+
+[npm-url]: https://npmjs.org/package/mobile-locator
+[npm-version-image]: http://img.shields.io/npm/v/mobile-locator.svg?style=flat
+[npm-downloads-image]: http://img.shields.io/npm/dm/mobile-locator.svg?style=flat
+[npm-classy-badge-image]: https://nodei.co/npm/mobile-locator.png?downloads=true&downloadRank=true&stars=true
+[npm-classy-badge-url]: https://nodei.co/npm/mobile-locator/
+
+[travis-url]: http://travis-ci.org/twang2218/mobile-locator
+[travis-image]: http://img.shields.io/travis/twang2218/mobile-locator.svg?style=flat
+
+[dependency-url]: https://gemnasium.com/twang2218/mobile-locator
+[dependency-image]: http://img.shields.io/gemnasium/twang2218/mobile-locator.svg
+
+[coverage-url]: https://coveralls.io/r/twang2218/mobile-locator
+[coverage-image]: http://img.shields.io/coveralls/twang2218/mobile-locator.svg
+
+
 Get geolocation from cell tower information.
 
 Currently, the following APIs are implemented:
