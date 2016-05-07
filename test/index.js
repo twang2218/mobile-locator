@@ -9,16 +9,16 @@ let config = {};
 try {
   config = JSON.parse(fs.readFileSync(`${__dirname}/config.json`));
 } catch (e) {
-  console.error('Cannot find `config.json`.');
+  console.error('Cannot find `config.json`. Use ENV variable instead.');
+  config.google_api_key = config.google_api_key || process.env.GOOGLE_API_KEY;
+  config.mozilla_api_key = config.mozilla_api_key || process.env.MOZILLA_API_KEY;
+  config.opencellid_key = config.opencellid_key || process.env.OPENCELLID_KEY;
+  config.yandex_key = config.yandex_key || process.env.YANDEX_KEY;
+  config.gpsspg_oid = config.gpsspg_oid || process.env.GPSSPG_OID;
+  config.gpsspg_key = config.gpsspg_key || process.env.GPSSPG_KEY;
+  config.haoservice_key = config.haoservice_key || process.env.HAOSERVICE_KEY;
 }
 
-config.google_api_key = config.google_api_key || process.env.GOOGLE_API_KEY;
-config.mozilla_api_key = config.mozilla_api_key || process.env.MOZILLA_API_KEY;
-config.opencellid_key = config.opencellid_key || process.env.OPENCELLID_KEY;
-config.yandex_key = config.yandex_key || process.env.YANDEX_KEY;
-config.gpsspg_oid = config.gpsspg_oid || process.env.GPSSPG_OID;
-config.gpsspg_key = config.gpsspg_key || process.env.GPSSPG_KEY;
-config.haoservice_key = config.haoservice_key || process.env.HAOSERVICE_KEY;
 
 const cells = [{
   mcc: 460,

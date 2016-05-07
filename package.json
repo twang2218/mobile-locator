@@ -5,7 +5,7 @@
     "main": "src/index.js",
     "bin": "src/cli.js",
     "scripts": {
-        "test": "mocha test/index.js"
+        "test": "istanbul cover _mocha test/index.js && istanbul-coveralls"
     },
     "author": "Tao Wang <twang2218@gmail.com>",
     "license": "Apache 2.0",
@@ -14,6 +14,8 @@
         "eslint": "^2.9.0",
         "eslint-config-airbnb": "^8.0.0",
         "eslint-plugin-import": "^1.6.1",
+        "istanbul": "^0.4.3",
+        "istanbul-coveralls": "^1.0.3",
         "mocha": "^2.4.5"
     },
     "dependencies": {
