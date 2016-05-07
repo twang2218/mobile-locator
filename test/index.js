@@ -3,7 +3,14 @@
 
 const locator = require('../src');
 const expect = require('chai').expect;
-const config = require('./config');
+const fs = require('fs');
+
+let config = {};
+try {
+  config = JSON.parse(fs.readFileSync(`${__dirname}/config.json`));
+} catch (e) {
+  console.error('Cannot find `config.json`.');
+}
 
 config.google_api_key = config.google_api_key || process.env.GOOGLE_API_KEY;
 config.mozilla_api_key = config.mozilla_api_key || process.env.MOZILLA_API_KEY;
