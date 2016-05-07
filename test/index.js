@@ -124,7 +124,8 @@ describe('Geolocation Engine', () => {
   });
 
   //  Cellocation
-  describe('Cellocation', () => {
+  describe('Cellocation', function testCellocation() {
+    this.timeout(5000);
     checkEngine('cellocation', {
       system: 'wgs84',
     }, cells[0]);
