@@ -1,0 +1,147 @@
+const locator = require('../src');
+const expect = require('chai').expect;
+const config = require('./config');
+
+const cells = [{
+  mcc: 460,
+  mnc: 0,
+  lac: 4219,
+  cid: 20925,
+  latitude: 39.9910225,
+  longitude: 116.4667949,
+}, {
+  mcc: 222,
+  mnc: 10,
+  lac: 10012,
+  cid: 39309,
+  latitude: 45.641612,
+  longitude: 8.8117626,
+}, {
+  mcc: 262,
+  mnc: 2,
+  lac: 5313,
+  cid: 131948771,
+  latitude: 51.4484981,
+  longitude: 7.2090162,
+}, {
+  mcc: 240,
+  mnc: 1,
+  lac: 3012,
+  cid: 11950,
+  latitude: 59.33171,
+  longitude: 18.07907,
+}, {
+  mcc: 250,
+  mnc: 2,
+  lac: 7840,
+  cid: 200719106,
+  latitude: 60.0526889,
+  longitude: 30.3799864,
+}, {
+  mcc: 460,
+  mnc: 0,
+  lac: 34860,
+  cid: 62041,
+  latitude: 22.0171793,
+  longitude: 100.7515358,
+}];
+
+/* eslint-disable no-undef,no-unused-expressions */
+
+function checkEngine(name, options, cell, extra) {
+  it(`engine.locate() - '${name}' : ${JSON.stringify(cell)}`, (done) => {
+    const engine = locator.createEngine(name, options);
+    engine.locate(cell, (error, location) => {
+      expect(error).to.be.null;
+      expect(location).to.not.be.null;
+      expect(location.latitude).to.be.within(-90, 90);
+      expect(location.longitude).to.be.within(-180, 180);
+      expect(location.accuracy).to.be.within(0, 10000);
+      if (cell.latitude) {
+        expect(location.latitude).to.be.within(cell.latitude - 0.02, cell.latitude + 0.02);
+        expect(location.longitude).to.be.within(cell.longitude - 0.02, cell.longitude + 0.02);
+      }
+      if (extra) {
+        extra(location);
+      }
+      done();
+    });
+  });
+}
+
+describe('Geolocation Engine', () => {
+  it('locator.createEngine()', () => {
+    expect(locator.createEngine('google')).to.have.property('locate');
+    expect(locator.createEngine('mozilla')).to.have.property('locate');
+    expect(locator.createEngine('opencellid')).to.have.property('locate');
+    expect(locator.createEngine('yandex')).to.have.property('locate');
+    expect(locator.createEngine('cellocation')).to.have.property('locate');
+    expect(locator.createEngine('gpsspg')).to.have.property('locate');
+    expect(locator.createEngine('haoservice')).to.have.property('locate');
+  });
+
+  //  Google
+  describe('Google Geolocation', () => {
+    checkEngine('google', {
+      key: config.google_api_key,
+    }, cells[0]);
+    checkEngine('google', {
+      key: config.google_api_key,
+    }, cells[1]);
+  });
+
+  //  Mozilla
+  describe.skip('Mozilla Geolocation', () => {
+    checkEngine('mozilla', {
+      key: config.mozilla_api_key,
+    }, cells[3]);
+  });
+
+  //  OpenCellID
+  describe('OpenCellID', () => {
+    checkEngine('opencellid', {
+      key: config.opencellid_key,
+    }, cells[2]);
+  });
+
+  //  Yandex
+  describe('Yandex', function testYandex() {
+    this.timeout(5000);
+    checkEngine('yandex', {
+      key: config.yandex_key,
+    }, cells[4]);
+  });
+
+  //  Cellocation
+  describe('Cellocation', () => {
+    checkEngine('cellocation', {
+      system: 'wgs84',
+    }, cells[0]);
+    // checkEngine('cellocation', {
+    //   system: 'gcj02',
+    // }, cells[0]);
+    // checkEngine('cellocation', {
+    //   system: 'bd09',
+    // }, cells[0]);
+  });
+
+  //  GPSspg
+  describe.skip('GPSspg.com', function testGPSspg() {
+    this.timeout(5000);
+    checkEngine('gpsspg', {
+      oid: config.gpsspg_oid,
+      key: config.gpsspg_key,
+    }, cells[5]);
+  });
+
+  //  HaoService
+  describe.skip('HaoService.com', function testHaoService() {
+    this.timeout(5000);
+    checkEngine('haoservice', {
+      key: config.haoservice_key,
+    }, cells[0]);
+  });
+});
+
+
+/* eslint-enable no-undef */

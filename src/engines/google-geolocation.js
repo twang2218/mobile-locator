@@ -6,7 +6,9 @@ const API = 'https://www.googleapis.com/geolocation/v1/geolocate';
 class GoogleGeolocation extends Base {
   constructor(options) {
     super();
-    this.key = options.key;
+    if (options) {
+      this.key = options.key;
+    }
   }
 
   getRequestSettings(cell) {

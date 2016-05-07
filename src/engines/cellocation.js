@@ -6,9 +6,11 @@ const API = 'http://api.cellocation.com/cell/';
 class Cellocation extends Base {
   constructor(options) {
     super();
-    //  Coordinate System
-    //  {'wgs84', 'gcj02', 'bd09'}
-    this.system = _.has(options, 'system') ? options.system : 'wgs84';
+    if (options) {
+      //  Coordinate System
+      //  {'wgs84', 'gcj02', 'bd09'}
+      this.system = options.system ? options.system : 'wgs84';
+    }
   }
 
   getRequestSettings(cell) {

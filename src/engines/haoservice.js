@@ -7,8 +7,10 @@ class HaoService extends Base {
 
   constructor(options) {
     super();
-    this.key = options.key;
-    this.system = options.system;
+    if (options) {
+      this.key = options.key;
+      this.system = options.system;
+    }
   }
 
   getRequestSettings(cell) {

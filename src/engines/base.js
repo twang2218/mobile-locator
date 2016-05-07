@@ -29,7 +29,7 @@ class Base {
       if (error) {
         //  Callback with error
         if (_.isFunction(callback)) {
-          callback(`Request Error: ${error}`, null);
+          callback(`Request Error: ${JSON.stringify(error)}`, null);
         }
       } else {
         const b = this.preprocessBody(body);
@@ -37,7 +37,7 @@ class Base {
           if (!this.validate(b)) {
             //  Callback with error message
             if (_.isFunction(callback)) {
-              callback(`Response Error: ${this.parseError(b)}`, null);
+              callback(`Response Error: ${JSON.stringify(this.parseError(b))}`, null);
             }
           } else {
             //  Callback with location info
@@ -49,7 +49,7 @@ class Base {
           //  Callback with HTTP Status Error Code
           if (_.isFunction(callback)) {
             const status = `${response.statusCode}: ${response.statusMessage}`;
-            callback(`Response Error: ${status} (${this.parseError(b)})`, null);
+            callback(`Response Error: ${status} (${JSON.stringify(this.parseError(b))})`, null);
           }
         }
       }

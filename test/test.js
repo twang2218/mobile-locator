@@ -13,25 +13,21 @@ const map = require('../src/mapservice');
 // }
 const config = require('./config');
 
-function onResponse(error, location) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log(`${JSON.stringify(location)}`);
-    console.log(map.format('google', location));
-    console.log(map.format('bing', location));
-    console.log(map.format('google.cn', location));
-    console.log(map.format('bing.cn', location));
-    console.log(map.format('openstreetmap', location));
-    console.log(map.format('baidu', location));
-  }
-}
-
 function test(cellInfo, name, options) {
   ml.createEngine(name, options)
     .locate(cellInfo, (error, location) => {
       console.log(`\n[${name}]`);
-      onResponse(error, location);
+      if (error) {
+        console.error(error);
+      } else {
+        console.log(`${JSON.stringify(location)}`);
+        console.log(map.format('google', location));
+        console.log(map.format('bing', location));
+        console.log(map.format('google.cn', location));
+        console.log(map.format('bing.cn', location));
+        console.log(map.format('openstreetmap', location));
+        console.log(map.format('baidu', location));
+      }
     });
 }
 
@@ -43,6 +39,7 @@ const data = {
 };
 
 console.log(data);
+
 test(data, 'google', {
   key: config.google_api_key,
 });
@@ -60,7 +57,7 @@ test(data, 'yandex', {
 });
 
 test(data, 'cellocation', {
-  system: 'gcj02',
+  system: 'wgs84',
 });
 
 test(data, 'gpsspg', {

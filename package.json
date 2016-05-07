@@ -5,14 +5,16 @@
     "main": "src/index.js",
     "bin": "src/cli.js",
     "scripts": {
-        "test": "node test/test.js"
+        "test": "mocha test/index.js"
     },
     "author": "Tao Wang <twang2218@gmail.com>",
     "license": "MIT",
     "devDependencies": {
+        "chai": "^3.5.0",
         "eslint": "^2.9.0",
         "eslint-config-airbnb": "^8.0.0",
-        "eslint-plugin-import": "^1.6.1"
+        "eslint-plugin-import": "^1.6.1",
+        "mocha": "^2.4.5"
     },
     "dependencies": {
         "lodash": "^4.11.2",

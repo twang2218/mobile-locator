@@ -6,7 +6,9 @@ const API = 'http://opencellid.org/cell/get';
 class OpenCellID extends Base {
   constructor(options) {
     super();
-    this.key = options.key;
+    if (options) {
+      this.key = options.key;
+    }
   }
 
   getRequestSettings(cell) {

@@ -6,9 +6,11 @@ const API = 'http://api.gpsspg.com/bs/';
 class GPSspg extends Base {
   constructor(options) {
     super();
-    this.key = options.key;
-    this.oid = options.oid;
-    this.system = options.system;
+    if (options) {
+      this.key = options.key;
+      this.oid = options.oid;
+      this.system = options.system;
+    }
   }
 
   getRequestSettings(cell) {

@@ -6,7 +6,9 @@ const API = 'http://api.lbs.yandex.net/geolocation';
 class Yandex extends Base {
   constructor(options) {
     super();
-    this.key = options.key;
+    if (options) {
+      this.key = options.key;
+    }
   }
 
   getRequestSettings(cell) {
