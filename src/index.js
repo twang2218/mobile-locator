@@ -8,6 +8,7 @@ const Yandex = require('./engines/yandex');
 const Cellocation = require('./engines/cellocation');
 const GPSspg = require('./engines/gpsspg');
 const HaoService = require('./engines/haoservice');
+const Mylnikov = require('./engines/mylnikov');
 
 class LocatorManager {
   constructor() {
@@ -20,6 +21,7 @@ class LocatorManager {
     this.register('cellocation', Cellocation);
     this.register('gpsspg', GPSspg);
     this.register('haoservice', HaoService);
+    this.register('mylnikov', Mylnikov);
   }
   register(name, engine) {
     this.engines[name] = engine;

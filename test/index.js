@@ -98,6 +98,7 @@ describe('Geolocation Engine', function () {
     expect(locator.createEngine('cellocation')).to.have.property('locate');
     expect(locator.createEngine('gpsspg')).to.have.property('locate');
     expect(locator.createEngine('haoservice')).to.have.property('locate');
+    expect(locator.createEngine('mylnikov')).to.have.property('locate');
   });
 
   //  Google
@@ -157,6 +158,13 @@ describe('Geolocation Engine', function () {
     checkEngine('haoservice', {
       key: config.haoservice_key,
     }, cells[0]);
+  });
+
+  //  Mylnikov
+  describe('mylnikov.org', () => {
+    checkEngine('mylnikov', null, cells[1]);
+    checkEngine('mylnikov', null, cells[2]);
+    checkEngine('mylnikov', null, cells[3]);
   });
 });
 

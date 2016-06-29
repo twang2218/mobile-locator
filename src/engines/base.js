@@ -6,6 +6,11 @@ const request = require('request');
 const _ = require('lodash');
 
 class Base {
+  constructor(options) {
+    if (options && options.verbose) {
+      request.debug = true;
+    }
+  }
   getRequestSettings() {
     return {};
   }

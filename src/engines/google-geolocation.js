@@ -8,7 +8,7 @@ const API = 'https://www.googleapis.com/geolocation/v1/geolocate';
 
 class GoogleGeolocation extends Base {
   constructor(options) {
-    super();
+    super(options);
     if (options) {
       this.key = options.key;
     }

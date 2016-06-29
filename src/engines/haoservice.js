@@ -9,7 +9,7 @@ const API = 'http://api.haoservice.com/api/getlbs';
 class HaoService extends Base {
 
   constructor(options) {
-    super();
+    super(options);
     if (options) {
       this.key = options.key;
       this.system = options.system;

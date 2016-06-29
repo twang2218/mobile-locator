@@ -8,7 +8,7 @@ const API = 'http://api.cellocation.com/cell/';
 
 class Cellocation extends Base {
   constructor(options) {
-    super();
+    super(options);
     if (options) {
       //  Coordinate System
       //  {'wgs84', 'gcj02', 'bd09'}

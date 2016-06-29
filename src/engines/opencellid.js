@@ -8,7 +8,7 @@ const API = 'http://opencellid.org/cell/get';
 
 class OpenCellID extends Base {
   constructor(options) {
-    super();
+    super(options);
     if (options) {
       this.key = options.key;
     }

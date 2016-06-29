@@ -8,7 +8,7 @@ const API = 'http://api.gpsspg.com/bs/';
 
 class GPSspg extends Base {
   constructor(options) {
-    super();
+    super(options);
     if (options) {
       this.key = options.key;
       this.oid = options.oid;

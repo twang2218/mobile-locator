@@ -8,7 +8,7 @@ const API = 'http://api.lbs.yandex.net/geolocation';
 
 class Yandex extends Base {
   constructor(options) {
-    super();
+    super(options);
     if (options) {
       this.key = options.key;
     }

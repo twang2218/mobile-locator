@@ -39,8 +39,8 @@ function setup() {
     .option('-c, --cell <cell>',
       'Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"', parseCell)
     .option('-e, --engine <engine>',
-      'Geolocation service engine. {google, mozilla, opencellid, yandex, cellocation, gpsspg, haoservice}. Default: google',
-      /^(google|mozilla|opencellid|yandex|cellocation|gpsspg|haoservice)$/i, 'google')
+      'Geolocation service engine. {google, mozilla, opencellid, yandex, cellocation, gpsspg, haoservice, mylnikov}. Default: google',
+      /^(google|mozilla|opencellid|yandex|cellocation|gpsspg|haoservice|mylnikov)$/i, 'google')
     .option('-a, --arguments <arguments>', 'Arguments for geolocation engine. e.g. "key:XXX,oid:123".', parseArguments)
     .option('-m, --map <map>', 'Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}. Default: google',
       /^(google|bing|google\.cn|bing\.cn|openstreetmap|baidu)$/i)
@@ -58,6 +58,7 @@ function setup() {
 function main() {
   if (program.verbose) {
     console.log('Geolocation engine: %j', program.engine);
+    program.arguments.verbose = true;
   }
   const engine = ml.createEngine(program.engine, program.arguments);
   if (program.cell) {
