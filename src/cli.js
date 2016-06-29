@@ -1,12 +1,9 @@
 #!/usr/bin/env node
 
-/* eslint strict:0 */
-'use strict';
-
-const program = require('commander');
-const pkinfo = require('../package');
-const ml = require('./index');
-const map = require('./mapservice');
+import program from 'commander';
+import pkinfo from '../package';
+import LocatorManager from './index';
+import MapServices from './mapservice';
 
 function parseCell(info) {
   const result = {};
@@ -60,7 +57,8 @@ function main() {
     console.log('Geolocation engine: %j', program.engine);
     program.arguments.verbose = true;
   }
-  const engine = ml.createEngine(program.engine, program.arguments);
+  const locator = new LocatorManager();
+  const engine = locator.createEngine(program.engine, program.arguments);
   if (program.cell) {
     if (program.verbose) {
       console.log('Cell: %j', program.cell);
@@ -81,6 +79,7 @@ function main() {
       }
 
       if (program.map) {
+        const map = new MapServices();
         const url = map.format(program.map, location);
         console.log(`Map url: ${url}`);
       }

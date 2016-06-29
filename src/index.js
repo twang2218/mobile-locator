@@ -1,16 +1,13 @@
-/* eslint strict:0 */
-'use strict';
+import GoogleGeolocation from './engines/google-geolocation';
+import MozillaGeolocation from './engines/mozilla-geolocation';
+import OpenCellID from './engines/opencellid';
+import Yandex from './engines/yandex';
+import Cellocation from './engines/cellocation';
+import GPSspg from './engines/gpsspg';
+import HaoService from './engines/haoservice';
+import Mylnikov from './engines/mylnikov';
 
-const GoogleGeolocation = require('./engines/google-geolocation');
-const MozillaGeolocation = require('./engines/mozilla-geolocation');
-const OpenCellID = require('./engines/opencellid');
-const Yandex = require('./engines/yandex');
-const Cellocation = require('./engines/cellocation');
-const GPSspg = require('./engines/gpsspg');
-const HaoService = require('./engines/haoservice');
-const Mylnikov = require('./engines/mylnikov');
-
-class LocatorManager {
+export default class LocatorManager {
   constructor() {
     this.engines = [];
     //  register existing services

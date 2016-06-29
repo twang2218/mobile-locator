@@ -1,12 +1,9 @@
-/* eslint strict:0 */
-'use strict';
-
-const _ = require('lodash');
-const Base = require('./base');
+import _ from 'lodash';
+import Base from './base';
 
 const API = 'http://api.lbs.yandex.net/geolocation';
 
-class Yandex extends Base {
+export default class Yandex extends Base {
   constructor(options) {
     super(options);
     if (options) {
@@ -66,6 +63,3 @@ class Yandex extends Base {
     return body;
   }
 }
-
-//  Exports
-module.exports = Yandex;

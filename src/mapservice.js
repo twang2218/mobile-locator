@@ -1,7 +1,4 @@
-/* eslint strict:0 */
-'use strict';
-
-class MapServices {
+export default class MapServices {
   constructor() {
     this.services = [];
     this.register('google', 'https://www.google.com/maps/@${lat},${long},${range}m/data=!3m1!1e3');

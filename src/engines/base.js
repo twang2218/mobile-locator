@@ -1,11 +1,7 @@
-/* eslint strict:0 */
-'use strict';
+import request from 'request';
+import _ from 'lodash';
 
-const request = require('request');
-// request.debug = true;
-const _ = require('lodash');
-
-class Base {
+export default class Base {
   constructor(options) {
     if (options && options.verbose) {
       request.debug = true;
@@ -64,6 +60,3 @@ class Base {
     });
   }
 }
-
-//  Exports
-module.exports = Base;

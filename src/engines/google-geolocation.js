@@ -1,12 +1,9 @@
-/* eslint strict:0 */
-'use strict';
-
-const _ = require('lodash');
-const Base = require('./base');
+import _ from 'lodash';
+import Base from './base';
 
 const API = 'https://www.googleapis.com/geolocation/v1/geolocate';
 
-class GoogleGeolocation extends Base {
+export default class GoogleGeolocation extends Base {
   constructor(options) {
     super(options);
     if (options) {
@@ -49,6 +46,3 @@ class GoogleGeolocation extends Base {
     return _.has(body, 'error') ? body.error.errors[0].reason : body;
   }
 }
-
-//  Exports
-module.exports = GoogleGeolocation;

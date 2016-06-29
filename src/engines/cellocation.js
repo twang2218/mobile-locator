@@ -1,12 +1,9 @@
-/* eslint strict:0 */
-'use strict';
-
-const _ = require('lodash');
-const Base = require('./base');
+import _ from 'lodash';
+import Base from './base';
 
 const API = 'http://api.cellocation.com/cell/';
 
-class Cellocation extends Base {
+export default class Cellocation extends Base {
   constructor(options) {
     super(options);
     if (options) {
@@ -48,6 +45,3 @@ class Cellocation extends Base {
     return _.has(body, 'error') ? body.error : body;
   }
 }
-
-//  Exports
-module.exports = Cellocation;

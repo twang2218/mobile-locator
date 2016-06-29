@@ -1,12 +1,9 @@
-/* eslint strict:0 */
-'use strict';
-
-const _ = require('lodash');
-const Base = require('./base');
+import _ from 'lodash';
+import Base from './base';
 
 const API = 'http://api.gpsspg.com/bs/';
 
-class GPSspg extends Base {
+export default class GPSspg extends Base {
   constructor(options) {
     super(options);
     if (options) {
@@ -52,6 +49,3 @@ class GPSspg extends Base {
     return _.has(body, 'status') ? body.status : body;
   }
 }
-
-//  Exports
-module.exports = GPSspg;

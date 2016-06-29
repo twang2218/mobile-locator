@@ -1,12 +1,9 @@
-/* eslint strict:0 */
-'use strict';
-
-const _ = require('lodash');
-const Base = require('./base');
+import _ from 'lodash';
+import Base from './base';
 
 const API = 'http://opencellid.org/cell/get';
 
-class OpenCellID extends Base {
+export default class OpenCellID extends Base {
   constructor(options) {
     super(options);
     if (options) {
@@ -45,6 +42,3 @@ class OpenCellID extends Base {
     return _.has(body, 'error') ? body.error : body;
   }
 }
-
-//  Exports
-module.exports = OpenCellID;
