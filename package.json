@@ -1,38 +1,38 @@
 {
-    "name": "mobile-locator",
-    "version": "0.3.0",
-    "description": "Locate geolocation information based on Cell base station data",
-    "main": "lib/index.js",
-    "bin": "lib/cli.js",
-    "scripts": {
-        "build": "babel src/ -d lib/",
-        "prepublish": "npm run build",
-        "test": "istanbul cover _mocha test/index.js",
-        "test-coveralls": "istanbul-coveralls"
-    },
-    "author": "Tao Wang <twang2218@gmail.com>",
-    "license": "Apache 2.0",
-    "engines": {
-        "node": ">=4.0"
-    },
-    "devDependencies": {
-        "babel-cli": "^6.10.1",
-        "babel-preset-es2015-node4": "^2.1.0",
-        "chai": "^3.5.0",
-        "eslint": "^2.9.0",
-        "eslint-config-airbnb": "^8.0.0",
-        "eslint-plugin-import": "^1.6.1",
-        "eslint-plugin-jsx-a11y": "^1.5.3",
-        "eslint-plugin-react": "^5.2.2",
-        "istanbul": "^0.4.3",
-        "istanbul-coveralls": "^1.0.3",
-        "mocha": "^2.4.5"
-    },
-    "dependencies": {
-        "lodash": "^4.11.2",
-        "request": "^2.72.0"
-    },
-    "repository": "twang2218/mobile-locator",
-    "bugs": "https://github.com/twang2218/mobile-locator/issues",
-    "keywords": "mobile,locator,geolocation,cell,cell tower,base station,location,api,google,mozilla,opencellid,yandex,cellocation,gpsspg,haoservice"
+  "name": "mobile-locator",
+  "version": "0.4.0",
+  "description": "Locate geolocation information based on Cell base station data",
+  "main": "lib/index.js",
+  "bin": "lib/cli.js",
+  "scripts": {
+    "build": "babel src/ -d lib/",
+    "prepublish": "npm run build",
+    "test": "istanbul cover _mocha test/index.js",
+    "test-coveralls": "istanbul-coveralls"
+  },
+  "author": "Tao Wang <twang2218@gmail.com>",
+  "license": "Apache 2.0",
+  "engines": {
+    "node": ">=4.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015-node4": "^2.1.0",
+    "chai": "^3.5.0",
+    "eslint": "^2.9.0",
+    "eslint-config-airbnb": "^8.0.0",
+    "eslint-plugin-import": "^1.6.1",
+    "eslint-plugin-jsx-a11y": "^1.5.3",
+    "eslint-plugin-react": "^5.2.2",
+    "istanbul": "^0.4.3",
+    "istanbul-coveralls": "^1.0.3",
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "lodash": "^4.11.2",
+    "request": "^2.72.0"
+  },
+  "repository": "twang2218/mobile-locator",
+  "bugs": "https://github.com/twang2218/mobile-locator/issues",
+  "keywords": "mobile,locator,geolocation,cell,cell tower,base station,location,api,google,mozilla,opencellid,yandex,cellocation,gpsspg,haoservice"
 }
