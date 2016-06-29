@@ -1,11 +1,11 @@
 /* eslint-disable */
 'use strict';
 
-var locator = require('../lib');
-var expect = require('chai').expect;
-var fs = require('fs');
+const locator = require('../lib')
+const expect = require('chai').expect;
+const fs = require('fs');
 
-var config = {};
+let config = {};
 try {
   config = JSON.parse(fs.readFileSync(`${__dirname}/config.json`));
 } catch (e) {
@@ -20,7 +20,7 @@ try {
 }
 
 
-var cells = [{
+const cells = [{
   mcc: 460,
   mnc: 0,
   lac: 4219,
@@ -67,9 +67,9 @@ var cells = [{
 /* eslint-disable no-undef,no-unused-expressions */
 
 function checkEngine(name, options, cell, extra) {
-  it(`engine.locate() - '${name}' : ${JSON.stringify(cell)}`, function (done) {
-    var engine = locator.createEngine(name, options);
-    engine.locate(cell, function (error, location) {
+  it(`engine.locate() - '${name}' : ${JSON.stringify(cell)}`, (done) => {
+    const engine = locator.createEngine(name, options);
+    engine.locate(cell, (error, location) => {
       expect(error).to.be.null;
       expect(location).to.not.be.null;
       expect(location.latitude).to.be.within(-90, 90);
@@ -90,7 +90,7 @@ function checkEngine(name, options, cell, extra) {
 describe('Geolocation Engine', function () {
   this.timeout(10000);
 
-  it('locator.createEngine()', function () {
+  it('locator.createEngine()', () => {
     expect(locator.createEngine('google')).to.have.property('locate');
     expect(locator.createEngine('mozilla')).to.have.property('locate');
     expect(locator.createEngine('opencellid')).to.have.property('locate');
@@ -102,7 +102,7 @@ describe('Geolocation Engine', function () {
   });
 
   //  Google
-  describe('Google Geolocation', function () {
+  describe('Google Geolocation', () => {
     checkEngine('google', {
       key: config.google_api_key,
     }, cells[0]);
@@ -112,28 +112,28 @@ describe('Geolocation Engine', function () {
   });
 
   //  Mozilla
-  describe.skip('Mozilla Geolocation', function () {
+  describe.skip('Mozilla Geolocation', () => {
     checkEngine('mozilla', {
       key: config.mozilla_api_key,
     }, cells[3]);
   });
 
   //  OpenCellID
-  describe('OpenCellID', function () {
+  describe('OpenCellID', () => {
     checkEngine('opencellid', {
       key: config.opencellid_key,
     }, cells[2]);
   });
 
   //  Yandex
-  describe('Yandex', function () {
+  describe('Yandex', () => {
     checkEngine('yandex', {
       key: config.yandex_key,
     }, cells[4]);
   });
 
   //  Cellocation
-  describe('Cellocation', function () {
+  describe('Cellocation', () => {
     checkEngine('cellocation', {
       system: 'wgs84',
     }, cells[0]);
@@ -146,7 +146,7 @@ describe('Geolocation Engine', function () {
   });
 
   //  GPSspg
-  describe.skip('GPSspg.com', function () {
+  describe.skip('GPSspg.com', () => {
     checkEngine('gpsspg', {
       oid: config.gpsspg_oid,
       key: config.gpsspg_key,
@@ -154,14 +154,14 @@ describe('Geolocation Engine', function () {
   });
 
   //  HaoService
-  describe.skip('HaoService.com', function () {
+  describe.skip('HaoService.com', () => {
     checkEngine('haoservice', {
       key: config.haoservice_key,
     }, cells[0]);
   });
 
   //  Mylnikov
-  describe('mylnikov.org', function () {
+  describe('mylnikov.org', () => {
     checkEngine('mylnikov', null, cells[1]);
     checkEngine('mylnikov', null, cells[2]);
     checkEngine('mylnikov', null, cells[3]);

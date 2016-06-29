@@ -12,6 +12,9 @@
     },
     "author": "Tao Wang <twang2218@gmail.com>",
     "license": "Apache 2.0",
+    "engines": {
+        "node": ">=4.0"
+    },
     "devDependencies": {
         "babel-cli": "^6.10.1",
         "babel-preset-es2015-node4": "^2.1.0",
