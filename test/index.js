@@ -1,13 +1,11 @@
 /* eslint-disable */
 'use strict';
 
-// const LocatorManager = require('../lib');
-// const locator = new LocatorManager();
-const locator = require('../lib');
-const expect = require('chai').expect;
-const fs = require('fs');
+var locator = require('../lib');
+var expect = require('chai').expect;
+var fs = require('fs');
 
-let config = {};
+var config = {};
 try {
   config = JSON.parse(fs.readFileSync(`${__dirname}/config.json`));
 } catch (e) {
@@ -22,7 +20,7 @@ try {
 }
 
 
-const cells = [{
+var cells = [{
   mcc: 460,
   mnc: 0,
   lac: 4219,
@@ -70,7 +68,7 @@ const cells = [{
 
 function checkEngine(name, options, cell, extra) {
   it(`engine.locate() - '${name}' : ${JSON.stringify(cell)}`, function (done) {
-    const engine = locator.createEngine(name, options);
+    var engine = locator.createEngine(name, options);
     engine.locate(cell, function (error, location) {
       expect(error).to.be.null;
       expect(location).to.not.be.null;
