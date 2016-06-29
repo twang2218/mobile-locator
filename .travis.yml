@@ -1,11 +1,18 @@
 language: node_js
 node_js:
-  - "6"
-  - "5"
-  - "4"
-
+    - '6'
+    - '5'
+    - '4'
 git:
-  depth: 10
-
+    depth: 10
 before_script: npm run build
 after_success: npm run test-coveralls
+deploy:
+    provider: npm
+    email: twang2218@gmail.com
+    api_key:
+        secure: Sicv8seFjnQWEBp30CtwSuZW3yYMx4lNyYiOGpny31N5UXl1ob80j4gSj2jzFmB76/Jf47oIB0p3QhkGm1Rqt2d550nP008gj8ndD4pYwO/473lmViEZ31vUVspJ58ryQDwQ9ilDkh3+d/Jg7rq1252EeglaVPMLc/yTKT/IXIj/r5ouVnaW1cE8DS5HeMzz2aWvEb8ZSeCvYApYgK+W7EVgnbeprs5BryhZDWhtlSI/ispe/8eK2aF/BOkIYWUjhZzsEQ0/5RKNpnt89GDh4h3j9A91OmauX9Odjeu4nEQhQl0MKmj2LTzwaW71sBdOZ8m7nGVdrIIJfraO7LLpW8BR8JxIDhmDxRtgzYRa3Q/KjeZDaBGHAjqCpVRgigsJ51z8vMoQhJetvSvOz61tNiw36JedarTNOTj3rYaaeAsjsS5uNyQtCObB/14/ghSDAsaNvccLsCsEwrYKQ05pV7Wzhgs7R6tpehHj0kKw7rgVxRoWq+eWk+gnmtbMALCS/gJJsrCTFlpLTJRFgiXrr0KGRza3sqpy4x84XiBz3WCmHxe8uKwL6zI257z4T4APkagqYXSH7eql9wIwYSkuugjA5Hlnp9vXcPf2soHLqFMnW6ThNsqfn1vChOAhBCCHT8/mNG8w90FpWgQJF5obx88zv44pZQzu+GJOrOYtW3U=
+    on:
+        tags: true
+        repo: twang2218/mobile-locator
+    skip_cleanup: true
