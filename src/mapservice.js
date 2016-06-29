@@ -1,4 +1,4 @@
-export class MapServices {
+export default class MapServices {
   constructor() {
     this.services = [];
     this.register('google', 'https://www.google.com/maps/@${lat},${long},${range}m/data=!3m1!1e3');
@@ -24,6 +24,3 @@ export class MapServices {
       .replace('${addr}', location.address);
   }
 }
-
-export const mapservice = new MapServices();
-export default mapservice;

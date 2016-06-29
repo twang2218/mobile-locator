@@ -7,7 +7,7 @@ import GPSspg from './engines/gpsspg';
 import HaoService from './engines/haoservice';
 import Mylnikov from './engines/mylnikov';
 
-import mapservice from './mapservice';
+import MapServices from './mapservice';
 
 export class LocatorManager {
   constructor() {
@@ -38,4 +38,4 @@ export class LocatorManager {
 
 export const locator = new LocatorManager();
 export default locator;
-export const map = mapservice;
+export const map = new MapServices();
