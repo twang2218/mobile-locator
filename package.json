@@ -1,6 +1,6 @@
 {
   "name": "mobile-locator",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Locate geolocation information based on Cell base station data",
   "main": "lib/index.js",
   "bin": "lib/cli.js",
