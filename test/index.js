@@ -1,7 +1,7 @@
-/* eslint-disable */
+/* eslint-disable strict */
 'use strict';
 
-const locator = require('../lib')
+const locator = require('../lib').locator;
 const expect = require('chai').expect;
 const fs = require('fs');
 
@@ -18,7 +18,6 @@ try {
   config.gpsspg_key = config.gpsspg_key || process.env.GPSSPG_KEY;
   config.haoservice_key = config.haoservice_key || process.env.HAOSERVICE_KEY;
 }
-
 
 const cells = [{
   mcc: 460,
@@ -86,7 +85,8 @@ function checkEngine(name, options, cell, extra) {
     });
   });
 }
-
+/* eslint-disable func-names */
+//  To keep the `this.timeout(10000)` context, we will not use the arrow function here.
 describe('Geolocation Engine', function () {
   this.timeout(10000);
 
@@ -113,36 +113,24 @@ describe('Geolocation Engine', function () {
 
   //  Mozilla
   describe.skip('Mozilla Geolocation', () => {
-    checkEngine('mozilla', {
-      key: config.mozilla_api_key,
-    }, cells[3]);
+    checkEngine('mozilla', { key: config.mozilla_api_key }, cells[3]);
   });
 
   //  OpenCellID
   describe('OpenCellID', () => {
-    checkEngine('opencellid', {
-      key: config.opencellid_key,
-    }, cells[2]);
+    checkEngine('opencellid', { key: config.opencellid_key }, cells[2]);
   });
 
   //  Yandex
   describe('Yandex', () => {
-    checkEngine('yandex', {
-      key: config.yandex_key,
-    }, cells[4]);
+    checkEngine('yandex', { key: config.yandex_key }, cells[4]);
   });
 
   //  Cellocation
   describe('Cellocation', () => {
-    checkEngine('cellocation', {
-      system: 'wgs84',
-    }, cells[0]);
-    // checkEngine('cellocation', {
-    //   system: 'gcj02',
-    // }, cells[0]);
-    // checkEngine('cellocation', {
-    //   system: 'bd09',
-    // }, cells[0]);
+    checkEngine('cellocation', { system: 'wgs84' }, cells[0]);
+    checkEngine('cellocation', { system: 'gcj02' }, cells[0]);
+    checkEngine('cellocation', { system: 'bd09' }, cells[0]);
   });
 
   //  GPSspg
@@ -155,9 +143,7 @@ describe('Geolocation Engine', function () {
 
   //  HaoService
   describe.skip('HaoService.com', () => {
-    checkEngine('haoservice', {
-      key: config.haoservice_key,
-    }, cells[0]);
+    checkEngine('haoservice', { key: config.haoservice_key }, cells[0]);
   });
 
   //  Mylnikov
@@ -167,6 +153,5 @@ describe('Geolocation Engine', function () {
     checkEngine('mylnikov', null, cells[3]);
   });
 });
-
 
 /* eslint-enable no-undef */

@@ -1,4 +1,4 @@
-export default class MapServices {
+export class MapServices {
   constructor() {
     this.services = [];
     this.register('google', 'https://www.google.com/maps/@${lat},${long},${range}m/data=!3m1!1e3');
@@ -25,4 +25,5 @@ export default class MapServices {
   }
 }
 
-module.exports = new MapServices();
+export const mapservice = new MapServices();
+export default mapservice;

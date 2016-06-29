@@ -2,8 +2,7 @@
 
 import program from 'commander';
 import pkinfo from '../package';
-import LocatorManager from './index';
-import MapServices from './mapservice';
+import { locator, map } from './index';
 
 function parseCell(info) {
   const result = {};
@@ -57,7 +56,6 @@ function main() {
     console.log('Geolocation engine: %j', program.engine);
     program.arguments.verbose = true;
   }
-  const locator = new LocatorManager();
   const engine = locator.createEngine(program.engine, program.arguments);
   if (program.cell) {
     if (program.verbose) {
@@ -79,7 +77,6 @@ function main() {
       }
 
       if (program.map) {
-        const map = new MapServices();
         const url = map.format(program.map, location);
         console.log(`Map url: ${url}`);
       }

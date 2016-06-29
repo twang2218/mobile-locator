@@ -135,9 +135,9 @@ Map url: http://api.map.baidu.com/marker?location=39.997967,116.479653&title=_&c
 ## Use the library
 
 ```javascript
-const ml = require('mobile-locator');
+const locator = require('./mobile-locator').locator;
 
-const engine = ml.createEngine('google', {
+const engine = locator.createEngine('google', {
   key: YOUR_GOOGLE_API_KEY,
 });
 engine.locate({
