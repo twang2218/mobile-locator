@@ -1,7 +1,7 @@
 /* eslint strict:0 */
 'use strict';
 
-const locator = require('../src');
+const locator = require('../lib');
 const expect = require('chai').expect;
 const fs = require('fs');
 

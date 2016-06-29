@@ -34,6 +34,7 @@ Currently, the following APIs are implemented:
  - `mozilla`: [Mozilla Geolocation API](https://location.services.mozilla.com/api)
  - `opencellid`: [OpenCellID API](http://opencellid.org/)
  - `yandex`: [Yandex Geolocation API (Russian)](https://tech.yandex.ru/locator/doc/dg/api/geolocation-api_json-docpage/)
+ - `mylnikov`: [Mylnikov Geolocation API](https://www.mylnikov.org/archives/1059)
  - `cellocation`: [Cellocation.com API (China)](http://www.cellocation.com/interfac/)
  - `gpsspg`: [GPSspg.com API (China)](http://www.gpsspg.com/api/bs/)
  - `haoservice`: [HaoService.com API (China)](http://www.haoservice.com/docs/1)
@@ -44,12 +45,13 @@ Currently, the following APIs are implemented:
 
 Create the location engine by given name and options.
 
-*Name*  | *Options*  
+*Name*  | *Options*
 --- | ---
  `google` | `key`: Google API key
  `mozilla` | `key`: Mozilla API key
  `opencellid` | `key`: OpenCellID API key
  `yandex` | `key`: Yandex API key
+ `mylnikov` |
  `cellocation` | `system`_(optional)_: Coordinate system: `wgs84`_(Default)_, `gcj02`, `bd09`.
  `gpsspg` | `key`: GPSspg API key, <br> `oid`: GPSspg OID,<br> `system`_(optional)_: Coordinate system: `0`:wgs84_(Default)_; `1`:gcj02; `2`:bd09; `3`:QQ Maps; `4`:MapBar
  `haoservice` | `key`: HaoService API key, <br> `system`_(optional)_: Coordinate system: `0`: gcj02; `1`:bd09; `2`:wgs84_(Default)_
@@ -62,7 +64,7 @@ The `callback` is a function with 2 arguments: `error` and `location`. `error` s
 
 `location` is an object contains following properties:
 
-*Property*  | *Description*  
+*Property*  | *Description*
 --- | ---
  `longitude` | Longitude
  `latitude` | Latitude
@@ -87,7 +89,7 @@ Options:
   -h, --help                   output usage information
   -V, --version                output the version number
   -c, --cell <cell>            Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"
-  -e, --engine <engine>        Geolocation service engine. {google, mozilla, opencellid, yandex, cellocation, gpsspg, haoservice}. Default: google
+  -e, --engine <engine>        Geolocation service engine. {google, mozilla, opencellid, yandex, mylnikov, cellocation, gpsspg, haoservice}. Default: google
   -a, --arguments <arguments>  Arguments for geolocation engine. e.g. "key:XXX,oid:123".
   -m, --map <map>              Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}.
   -v, --verbose                Verbose output.
