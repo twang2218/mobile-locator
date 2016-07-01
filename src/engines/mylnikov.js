@@ -11,7 +11,6 @@ export default class Mylnikov extends Base {
       json: true,
       qs: {
         v: API_VERSION,
-        data: 'open',
         mcc: cell.mcc,
         mnc: cell.mnc,
         lac: cell.lac,
