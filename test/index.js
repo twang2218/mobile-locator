@@ -148,8 +148,9 @@ describe('Geolocation Engine', function () {
 
   //  Mylnikov
   describe('mylnikov.org', () => {
+    checkEngine('mylnikov', null, cells[0]);
     checkEngine('mylnikov', null, cells[1]);
-    checkEngine('mylnikov', null, cells[2]);
+    checkEngine('mylnikov', { data: 'open' }, cells[2]);
     checkEngine('mylnikov', null, cells[3]);
   });
 });

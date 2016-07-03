@@ -5,12 +5,22 @@ const API = 'https://api.mylnikov.org/geolocation/cell';
 const API_VERSION = '1.1';
 
 export default class Mylnikov extends Base {
+  constructor(options) {
+    super(options);
+    if (options) {
+      if (options.data) {
+        this.data = options.data;
+      }
+    }
+  }
+
   getRequestSettings(cell) {
     return {
       uri: API,
       json: true,
       qs: {
         v: API_VERSION,
+        data: this.data,
         mcc: cell.mcc,
         mnc: cell.mnc,
         lac: cell.lac,
