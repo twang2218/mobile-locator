@@ -3,8 +3,13 @@ import _ from 'lodash';
 
 export default class Base {
   constructor(options) {
-    if (options && options.verbose) {
-      request.debug = true;
+    if (options) {
+      if (options.verbose) {
+        request.debug = true;
+      }
+      if (options.timeout) {
+        this.timeout = options.timeout;
+      }
     }
   }
   getRequestSettings() {
@@ -29,11 +34,22 @@ export default class Base {
 
   locate(cell, callback) {
     //  Send request
-    request(this.getRequestSettings(cell), (error, response, body) => {
+    const options = this.getRequestSettings(cell);
+    options.timeout = this.timeout;
+
+    request(options, (error, response, body) => {
       if (error) {
-        //  Callback with error
-        if (_.isFunction(callback)) {
-          callback(`Request Error: ${JSON.stringify(error)}`, null);
+        if (error.code === 'ETIMEDOUT') {
+          if (error.connect === true) {
+            callback('Request connection timeout.', null);
+          } else {
+            callback('Request timeout.', null);
+          }
+        } else {
+          //  Callback with error
+          if (_.isFunction(callback)) {
+            callback(`Request Error: ${JSON.stringify(error)}`, null);
+          }
         }
       } else {
         const b = this.preprocessBody(body);

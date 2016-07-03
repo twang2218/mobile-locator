@@ -56,6 +56,11 @@ Create the location engine by given name and options.
  `gpsspg` | `key`: GPSspg API key, <br> `oid`: GPSspg OID,<br> `system`_(optional)_: Coordinate system: `0`:wgs84_(Default)_; `1`:gcj02; `2`:bd09; `3`:QQ Maps; `4`:MapBar
  `haoservice` | `key`: HaoService API key, <br> `system`_(optional)_: Coordinate system: `0`: gcj02; `1`:bd09; `2`:wgs84_(Default)_
 
+Besides the above engine-specific options,  more general options are also available:
+
+ - `verbose`: Print more debug information if `verbose ` is `true`;
+ - `timeout`: Set the timeout value in milliseconds. There is no timeout by default.
+
 ## _engine_.locate(info, callback)
 
 `info` should contain cell information, including `mnc`, `mcc`, `lac` and `cid`.

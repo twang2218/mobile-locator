@@ -88,7 +88,7 @@ function checkEngine(name, options, cell, extra) {
 /* eslint-disable func-names */
 //  To keep the `this.timeout(10000)` context, we will not use the arrow function here.
 describe('Geolocation Engine', function () {
-  this.timeout(10000);
+  this.timeout(20000);
 
   it('locator.createEngine()', () => {
     expect(locator.createEngine('google')).to.have.property('locate');
@@ -152,6 +152,23 @@ describe('Geolocation Engine', function () {
     checkEngine('mylnikov', null, cells[1]);
     checkEngine('mylnikov', { data: 'open' }, cells[2]);
     checkEngine('mylnikov', null, cells[3]);
+  });
+
+  //  Test timeout
+  describe('Timeout', () => {
+    const name = 'cellocation';
+    const options = { timeout: 200, system: 'wgs84' };
+    const cell = cells[0];
+
+    it(`engine.locate() - '${name}' with timeout`, (done) => {
+      const engine = locator.createEngine(name, options);
+      engine.locate(cell, (error, location) => {
+        expect(error).to.not.be.null;
+        expect(error.indexOf('timeout')).to.be.least(0);
+        expect(location).to.be.null;
+        done();
+      });
+    });
   });
 });
 
