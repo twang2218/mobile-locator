@@ -1,12 +1,13 @@
 language: node_js
 node_js:
+    - '7'
     - '6'
     - '5'
     - '4'
 git:
     depth: 10
-before_script: npm run build
-after_success: npm run test-coveralls
+before_script: yarn build
+after_success: yarn test-coveralls
 deploy:
     provider: npm
     email: twang2218@gmail.com
