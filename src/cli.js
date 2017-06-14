@@ -35,8 +35,8 @@ function setup() {
     .option('-c, --cell <cell>',
       'Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"', parseCell)
     .option('-e, --engine <engine>',
-      'Geolocation service engine. {google, mozilla, opencellid, yandex, cellocation, gpsspg, haoservice, mylnikov}. Default: google',
-      /^(google|mozilla|opencellid|yandex|cellocation|gpsspg|haoservice|mylnikov)$/i, 'google')
+      'Geolocation service engine. {cellocation, google, gpsspg, haoservice, mozilla, mylnikov, opencellid, unwiredlabs, yandex}. Default: google',
+      /^(cellocation|google|gpsspg|haoservice|mozilla|mylnikov|opencellid|unwiredlabs|yandex)$/i, 'google')
     .option('-a, --arguments <arguments>', 'Arguments for geolocation engine. e.g. "key:XXX,oid:123".', parseArguments)
     .option('-m, --map <map>', 'Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}. Default: google',
       /^(google|bing|google\.cn|bing\.cn|openstreetmap|baidu)$/i)

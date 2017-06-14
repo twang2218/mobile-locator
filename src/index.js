@@ -6,6 +6,7 @@ import Cellocation from './engines/cellocation';
 import GPSspg from './engines/gpsspg';
 import HaoService from './engines/haoservice';
 import Mylnikov from './engines/mylnikov';
+import UnwiredLabs from './engines/unwiredlabs';
 
 import MapServices from './mapservice';
 
@@ -21,6 +22,7 @@ export class LocatorManager {
     this.register('gpsspg', GPSspg);
     this.register('haoservice', HaoService);
     this.register('mylnikov', Mylnikov);
+    this.register('unwiredlabs', UnwiredLabs);
   }
   register(name, engine) {
     this.engines[name] = engine;

@@ -11,12 +11,13 @@ try {
 } catch (e) {
   console.error('Cannot find `config.json`. Use ENV variable instead.');
   config.google_api_key = config.google_api_key || process.env.GOOGLE_API_KEY;
-  config.mozilla_api_key = config.mozilla_api_key || process.env.MOZILLA_API_KEY;
-  config.opencellid_key = config.opencellid_key || process.env.OPENCELLID_KEY;
-  config.yandex_key = config.yandex_key || process.env.YANDEX_KEY;
   config.gpsspg_oid = config.gpsspg_oid || process.env.GPSSPG_OID;
   config.gpsspg_key = config.gpsspg_key || process.env.GPSSPG_KEY;
   config.haoservice_key = config.haoservice_key || process.env.HAOSERVICE_KEY;
+  config.mozilla_api_key = config.mozilla_api_key || process.env.MOZILLA_API_KEY;
+  config.opencellid_key = config.opencellid_key || process.env.OPENCELLID_KEY;
+  config.unwiredlabs_token = config.unwiredlabs_token || process.env.UNWIREDLABS_TOKEN;
+  config.yandex_key = config.yandex_key || process.env.YANDEX_KEY;
 }
 
 const cells = [{
@@ -91,14 +92,22 @@ describe('Geolocation Engine', function () {
   this.timeout(20000);
 
   it('locator.createEngine()', () => {
-    expect(locator.createEngine('google')).to.have.property('locate');
-    expect(locator.createEngine('mozilla')).to.have.property('locate');
-    expect(locator.createEngine('opencellid')).to.have.property('locate');
-    expect(locator.createEngine('yandex')).to.have.property('locate');
     expect(locator.createEngine('cellocation')).to.have.property('locate');
+    expect(locator.createEngine('google')).to.have.property('locate');
     expect(locator.createEngine('gpsspg')).to.have.property('locate');
     expect(locator.createEngine('haoservice')).to.have.property('locate');
+    expect(locator.createEngine('mozilla')).to.have.property('locate');
     expect(locator.createEngine('mylnikov')).to.have.property('locate');
+    expect(locator.createEngine('opencellid')).to.have.property('locate');
+    expect(locator.createEngine('unwiredlabs')).to.have.property('locate');
+    expect(locator.createEngine('yandex')).to.have.property('locate');
+  });
+
+  //  Cellocation
+  describe('Cellocation', () => {
+    checkEngine('cellocation', { system: 'wgs84' }, cells[0]);
+    checkEngine('cellocation', { system: 'gcj02' }, cells[0]);
+    checkEngine('cellocation', { system: 'bd09' }, cells[0]);
   });
 
   //  Google
@@ -109,28 +118,6 @@ describe('Geolocation Engine', function () {
     checkEngine('google', {
       key: config.google_api_key,
     }, cells[1]);
-  });
-
-  //  Mozilla
-  describe.skip('Mozilla Geolocation', () => {
-    checkEngine('mozilla', { key: config.mozilla_api_key }, cells[3]);
-  });
-
-  //  OpenCellID
-  describe('OpenCellID', () => {
-    checkEngine('opencellid', { key: config.opencellid_key }, cells[2]);
-  });
-
-  //  Yandex
-  describe('Yandex', () => {
-    checkEngine('yandex', { key: config.yandex_key }, cells[4]);
-  });
-
-  //  Cellocation
-  describe('Cellocation', () => {
-    checkEngine('cellocation', { system: 'wgs84' }, cells[0]);
-    checkEngine('cellocation', { system: 'gcj02' }, cells[0]);
-    checkEngine('cellocation', { system: 'bd09' }, cells[0]);
   });
 
   //  GPSspg
@@ -146,12 +133,34 @@ describe('Geolocation Engine', function () {
     checkEngine('haoservice', { key: config.haoservice_key }, cells[0]);
   });
 
+  //  Mozilla
+  describe.skip('Mozilla Geolocation', () => {
+    checkEngine('mozilla', { key: config.mozilla_api_key }, cells[3]);
+  });
+
   //  Mylnikov
   describe('mylnikov.org', () => {
     checkEngine('mylnikov', null, cells[0]);
     checkEngine('mylnikov', null, cells[1]);
     checkEngine('mylnikov', { data: 'open' }, cells[2]);
     checkEngine('mylnikov', null, cells[3]);
+  });
+
+  //  OpenCellID
+  describe('OpenCellID', () => {
+    checkEngine('opencellid', { key: config.opencellid_key }, cells[2]);
+  });
+
+  //  UnwiredLabs
+  describe('unwiredlabs.com', () => {
+    checkEngine('unwiredlabs', { token: config.unwiredlabs_token }, cells[0]);
+    checkEngine('unwiredlabs', { token: config.unwiredlabs_token }, cells[1]);
+    checkEngine('unwiredlabs', { token: config.unwiredlabs_token }, cells[2]);
+  });
+
+  //  Yandex
+  describe('Yandex', () => {
+    checkEngine('yandex', { key: config.yandex_key }, cells[4]);
   });
 
   //  Test timeout
