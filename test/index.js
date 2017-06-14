@@ -157,15 +157,15 @@ describe('Geolocation Engine', function () {
   //  Test timeout
   describe('Timeout', () => {
     const name = 'cellocation';
-    const options = { timeout: 200, system: 'wgs84' };
+    const options = { timeout: 1, system: 'wgs84' };
     const cell = cells[0];
 
     it(`engine.locate() - '${name}' with timeout`, (done) => {
       const engine = locator.createEngine(name, options);
       engine.locate(cell, (error, location) => {
+        expect(location).to.be.null;
         expect(error).to.not.be.null;
         expect(error.indexOf('timeout')).to.be.least(0);
-        expect(location).to.be.null;
         done();
       });
     });

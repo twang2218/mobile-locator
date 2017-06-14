@@ -34,9 +34,9 @@ export default class Cellocation extends Base {
 
   parseLocation(body) {
     return {
-      longitude: body.lon,
-      latitude: body.lat,
-      accuracy: body.radius,
+      longitude: parseFloat(body.lon),
+      latitude: parseFloat(body.lat),
+      accuracy: parseInt(body.radius),
       address: body.address,
     };
   }

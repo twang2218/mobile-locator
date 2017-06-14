@@ -39,7 +39,7 @@ export default class Base {
 
     request(options, (error, response, body) => {
       if (error) {
-        if (error.code === 'ETIMEDOUT') {
+        if (error.code === 'ETIMEDOUT' || error.code === 'ESOCKETTIMEDOUT') {
           if (error.connect === true) {
             callback('Request connection timeout.', null);
           } else {
