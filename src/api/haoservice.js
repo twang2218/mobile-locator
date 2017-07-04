@@ -1,9 +1,10 @@
-import _ from 'lodash';
-import Base from './base';
+const has = require('lodash/has');
+const Base = require('./base');
 
 const API = 'http://api.haoservice.com/api/getlbs';
 
-export default class HaoService extends Base {
+/* eslint-disable class-methods-use-this */
+class HaoService extends Base {
 
   constructor(options) {
     super(options);
@@ -44,6 +45,8 @@ export default class HaoService extends Base {
   }
 
   parseError(body) {
-    return _.has(body, 'ErrCode') ? body.ErrCode : body;
+    return has(body, 'ErrCode') ? body.ErrCode : body;
   }
 }
+
+module.exports = HaoService;

@@ -1,10 +1,11 @@
-import _ from 'lodash';
-import Base from './base';
+const has = require('lodash/has');
+const Base = require('./base');
 
 const API = 'https://api.mylnikov.org/geolocation/cell';
 const API_VERSION = '1.1';
 
-export default class Mylnikov extends Base {
+/* eslint-disable class-methods-use-this */
+class Mylnikov extends Base {
   constructor(options) {
     super(options);
     if (options) {
@@ -42,6 +43,8 @@ export default class Mylnikov extends Base {
   }
 
   parseError(body) {
-    return _.has(body, 'desc') ? body.desc : body;
+    return has(body, 'desc') ? body.desc : body;
   }
 }
+
+module.exports = Mylnikov;

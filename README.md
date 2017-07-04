@@ -142,17 +142,10 @@ Map url: http://api.map.baidu.com/marker?location=39.997967,116.479653&title=_&c
 ## Use the library
 
 ```javascript
-const locator = require('./mobile-locator').locator;
+const api = require('./mobile-locator').api;
 
-const engine = locator.createEngine('google', {
-  key: YOUR_GOOGLE_API_KEY,
-});
-engine.locate({
-  mcc: 460,
-  mnc: 0,
-  lac: 4219,
-  cid: 20925,
-}, (error, location) => {
+const locate = api('google', { key: YOUR_GOOGLE_API_KEY });
+locate({ mcc: 460, mnc: 0, lac: 4219, cid: 20925 }, (error, location) => {
   if (error) {
     console.error(error);
   }

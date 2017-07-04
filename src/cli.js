@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import program from 'commander';
-import pkinfo from '../package';
-import { locator, map } from './index';
+const program = require('commander');
+const pkinfo = require('../package');
+const { api, map } = require('.');
 
 function parseCell(info) {
   const result = {};
@@ -19,7 +19,7 @@ function parseCell(info) {
 function parseArguments(data) {
   const result = {};
   data.split(',')
-    .forEach(x => {
+    .forEach((x) => {
       const pair = x.split(':');
       if (pair[0]) {
         result[pair[0].trim()] = pair[1].trim();
@@ -56,12 +56,12 @@ function main() {
     console.log('Geolocation engine: %j', program.engine);
     program.arguments.verbose = true;
   }
-  const engine = locator.createEngine(program.engine, program.arguments);
+  const locate = api(program.engine, program.arguments);
   if (program.cell) {
     if (program.verbose) {
       console.log('Cell: %j', program.cell);
     }
-    engine.locate(program.cell, (error, location) => {
+    locate(program.cell, (error, location) => {
       if (error) {
         console.error(error);
         program.help();
@@ -77,10 +77,9 @@ function main() {
       }
 
       if (program.map) {
-        const url = map.format(program.map, location);
+        const url = map(program.map, location);
         console.log(`Map url: ${url}`);
       }
-      return;
     });
   } else {
     console.error('Missing cell base station information.');

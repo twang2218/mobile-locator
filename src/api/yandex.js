@@ -1,9 +1,10 @@
-import _ from 'lodash';
-import Base from './base';
+const has = require('lodash/has');
+const Base = require('./base');
 
 const API = 'http://api.lbs.yandex.net/geolocation';
 
-export default class Yandex extends Base {
+/* eslint-disable class-methods-use-this */
+class Yandex extends Base {
   constructor(options) {
     super(options);
     if (options) {
@@ -37,7 +38,7 @@ export default class Yandex extends Base {
 
   validate(body) {
     try {
-      return !_.has(body, 'error') && (body.position.type !== 'ip');
+      return !has(body, 'error') && (body.position.type !== 'ip');
     } catch (e) {
       return false;
     }
@@ -52,7 +53,7 @@ export default class Yandex extends Base {
   }
 
   parseError(body) {
-    if (_.has(body, 'error')) {
+    if (has(body, 'error')) {
       return `[${body.error.code}] ${body.error.text}`;
     }
 
@@ -63,3 +64,5 @@ export default class Yandex extends Base {
     return body;
   }
 }
+
+module.exports = Yandex;

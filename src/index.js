@@ -1,43 +1,24 @@
-import GoogleGeolocation from './engines/google-geolocation';
-import MozillaGeolocation from './engines/mozilla-geolocation';
-import OpenCellID from './engines/opencellid';
-import Yandex from './engines/yandex';
-import Cellocation from './engines/cellocation';
-import GPSspg from './engines/gpsspg';
-import HaoService from './engines/haoservice';
-import Mylnikov from './engines/mylnikov';
-import UnwiredLabs from './engines/unwiredlabs';
+const map = require('./mapservice');
 
-import MapServices from './mapservice';
+/* eslint-disable global-require */
+const Locators = {
+  cellocation: require('./api/cellocation'),
+  google: require('./api/google-geolocation'),
+  gpsspg: require('./api/gpsspg'),
+  haoservice: require('./api/haoservice'),
+  mozilla: require('./api/mozilla-geolocation'),
+  mylnikov: require('./api/mylnikov'),
+  opencellid: require('./api/opencellid'),
+  unwiredlabs: require('./api/unwiredlabs'),
+  yandex: require('./api/yandex'),
+};
 
-export class LocatorManager {
-  constructor() {
-    this.engines = [];
-    //  register existing services
-    this.register('google', GoogleGeolocation);
-    this.register('mozilla', MozillaGeolocation);
-    this.register('opencellid', OpenCellID);
-    this.register('yandex', Yandex);
-    this.register('cellocation', Cellocation);
-    this.register('gpsspg', GPSspg);
-    this.register('haoservice', HaoService);
-    this.register('mylnikov', Mylnikov);
-    this.register('unwiredlabs', UnwiredLabs);
-  }
-  register(name, engine) {
-    this.engines[name] = engine;
-  }
-  unregister(name) {
-    delete this.engines[name];
-  }
-  createEngine(name, options) {
-    if (this.engines[name]) {
-      return new this.engines[name](options);
-    }
-    return null;
-  }
-}
+const api = (service, options) => {
+  const locator = new Locators[service](options);
+  return (cell, callback) => locator.locate(cell, callback);
+};
 
-export const locator = new LocatorManager();
-export default locator;
-export const map = new MapServices();
+module.exports = {
+  api,
+  map,
+};

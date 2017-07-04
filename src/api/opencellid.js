@@ -1,9 +1,10 @@
-import _ from 'lodash';
-import Base from './base';
+const has = require('lodash/has');
+const Base = require('./base');
 
 const API = 'http://opencellid.org/cell/get';
 
-export default class OpenCellID extends Base {
+/* eslint-disable class-methods-use-this */
+class OpenCellID extends Base {
   constructor(options) {
     super(options);
     if (options) {
@@ -27,7 +28,7 @@ export default class OpenCellID extends Base {
   }
 
   validate(body) {
-    return !_.has(body, 'error');
+    return !has(body, 'error');
   }
 
   parseLocation(body) {
@@ -39,6 +40,8 @@ export default class OpenCellID extends Base {
   }
 
   parseError(body) {
-    return _.has(body, 'error') ? body.error : body;
+    return has(body, 'error') ? body.error : body;
   }
 }
+
+module.exports = OpenCellID;

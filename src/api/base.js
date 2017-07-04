@@ -1,7 +1,8 @@
-import request from 'request';
-import _ from 'lodash';
+const request = require('request');
+const isFunction = require('lodash/isFunction');
 
-export default class Base {
+/* eslint-disable class-methods-use-this */
+class Base {
   constructor(options) {
     if (options) {
       if (options.verbose) {
@@ -32,6 +33,12 @@ export default class Base {
     return body;
   }
 
+  doCallbank(callback, error, value) {
+    if (isFunction(callback)) {
+      callback(error, value);
+    }
+  }
+
   locate(cell, callback) {
     //  Send request
     const options = this.getRequestSettings(cell);
@@ -47,32 +54,25 @@ export default class Base {
           }
         } else {
           //  Callback with error
-          if (_.isFunction(callback)) {
-            callback(`Request Error: ${JSON.stringify(error)}`, null);
-          }
+          this.doCallbank(callback, `Request Error: ${JSON.stringify(error)}`, null);
         }
       } else {
         const b = this.preprocessBody(body);
         if (response.statusCode === 200) {
           if (!this.validate(b)) {
             //  Callback with error message
-            if (_.isFunction(callback)) {
-              callback(`Response Error: ${JSON.stringify(this.parseError(b))}`, null);
-            }
+            this.doCallbank(callback, `Response Error: ${JSON.stringify(this.parseError(b))}`, null);
           } else {
             //  Callback with location info
-            if (_.isFunction(callback)) {
-              callback(null, this.parseLocation(b));
-            }
+            this.doCallbank(callback, null, this.parseLocation(b));
           }
         } else {
           //  Callback with HTTP Status Error Code
-          if (_.isFunction(callback)) {
-            const status = `${response.statusCode}: ${response.statusMessage}`;
-            callback(`Response Error: ${status} (${JSON.stringify(this.parseError(b))})`, null);
-          }
+          this.doCallbank(callback, `Response Error: ${response.statusCode}: ${response.statusMessage} (${JSON.stringify(this.parseError(b))})`, null);
         }
       }
     });
   }
 }
+
+module.exports = Base;

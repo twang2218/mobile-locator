@@ -1,8 +1,8 @@
-import GoogleGeolocation from './google-geolocation';
+const GoogleGeolocation = require('./google-geolocation');
 
 const API = 'https://location.services.mozilla.com/v1/geolocate';
 
-export default class MozillaGeolocation extends GoogleGeolocation {
+class MozillaGeolocation extends GoogleGeolocation {
   getRequestSettings(cell) {
     return {
       method: 'POST',
@@ -22,3 +22,5 @@ export default class MozillaGeolocation extends GoogleGeolocation {
     };
   }
 }
+
+module.exports = MozillaGeolocation;

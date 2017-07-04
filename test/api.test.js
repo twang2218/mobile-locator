@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-const locator = require('../src').locator;
+const api = require('../src').api;
 const debug = require('debug')('mobile-locator');
 
 const config = {
@@ -82,10 +82,10 @@ expect.extend({
 });
 
 function checkEngine(name, options, cell, extra) {
-  it(`engine.locate() - '${name}' : ${JSON.stringify(cell)}`, (done) => {
-    debug(`engine.locate() => name: '${name}', options: '${JSON.stringify(options)}'), cell: '${JSON.stringify(cell)}, extra: '${JSON.stringify(extra)}' `);
-    const engine = locator.createEngine(name, options);
-    engine.locate(cell, (error, location) => {
+  it(`locate() - '${name}' : ${JSON.stringify(cell)}`, (done) => {
+    debug(`locate() => name: '${name}', options: '${JSON.stringify(options)}'), cell: '${JSON.stringify(cell)}, extra: '${JSON.stringify(extra)}' `);
+    const locate = api(name, options);
+    locate(cell, (error, location) => {
       expect(error).toBeNull();
       expect(location).toBeDefined();
       expect(location.latitude).toBeWithin(-90, 90);
@@ -110,8 +110,8 @@ describe('Geolocation Engine', () => {
 
   describe('Engine creation', () => {
     ['cellocation', 'google', 'gpsspg', 'haoservice', 'mozilla', 'mylnikov', 'opencellid', 'unwiredlabs', 'yandex'].forEach((name) => {
-      it(`locator.createEngine(${name}) should contain 'locate()' function`, () => {
-        expect(locator.createEngine(name).locate).toEqual(expect.any(Function));
+      it(`api(${name}) should contain 'locate()' function`, () => {
+        expect(api(name)).toEqual(expect.any(Function));
       });
     });
   });
@@ -182,9 +182,9 @@ describe('Geolocation Engine', () => {
     const options = { timeout: 1, system: 'wgs84' };
     const cell = cells[0];
 
-    it(`engine.locate() - '${name}' with timeout`, (done) => {
-      const engine = locator.createEngine(name, options);
-      engine.locate(cell, (error, location) => {
+    it(`locate() - '${name}' with timeout`, (done) => {
+      const locate = api(name, options);
+      locate(cell, (error, location) => {
         expect(location).toBeNull();
         expect(error).toBeDefined();
         expect(error.indexOf('timeout')).toBeGreaterThanOrEqual(0);

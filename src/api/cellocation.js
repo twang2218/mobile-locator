@@ -1,9 +1,10 @@
-import _ from 'lodash';
-import Base from './base';
+const has = require('lodash/has');
+const Base = require('./base');
 
 const API = 'http://api.cellocation.com/cell/';
 
-export default class Cellocation extends Base {
+/* eslint-disable class-methods-use-this */
+class Cellocation extends Base {
   constructor(options) {
     super(options);
     if (options) {
@@ -36,12 +37,14 @@ export default class Cellocation extends Base {
     return {
       longitude: parseFloat(body.lon),
       latitude: parseFloat(body.lat),
-      accuracy: parseInt(body.radius),
+      accuracy: parseInt(body.radius, 10),
       address: body.address,
     };
   }
 
   parseError(body) {
-    return _.has(body, 'error') ? body.error : body;
+    return has(body, 'error') ? body.error : body;
   }
 }
+
+module.exports = Cellocation;

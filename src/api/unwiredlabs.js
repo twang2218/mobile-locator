@@ -1,5 +1,5 @@
-import _ from 'lodash';
-import Base from './base';
+const has = require('lodash/has');
+const Base = require('./base');
 
 const API = 'https://unwiredlabs.com/v2/process.php';
 
@@ -10,7 +10,8 @@ const API = 'https://unwiredlabs.com/v2/process.php';
  * Asia Pacific (Singapore): https://ap1.unwiredlabs.com/v2/process.php
  */
 
-export default class UnwiredLabs extends Base {
+/* eslint-disable class-methods-use-this */
+class UnwiredLabs extends Base {
   constructor(options) {
     super(options);
     if (options) {
@@ -44,12 +45,14 @@ export default class UnwiredLabs extends Base {
     return {
       longitude: parseFloat(body.lon),
       latitude: parseFloat(body.lat),
-      accuracy: parseInt(body.accuracy),
+      accuracy: parseInt(body.accuracy, 10),
       address: body.address,
     };
   }
 
   parseError(body) {
-    return _.has(body, 'status') && body.status === 'error' ? body.message : body;
+    return has(body, 'status') && body.status === 'error' ? body.message : body;
   }
 }
+
+module.exports = UnwiredLabs;
