@@ -25,10 +25,10 @@
     "base station",
     "api"
   ],
-  "main": "lib/index.js",
-  "bin": "lib/cli.js",
+  "main": "dist/index.js",
+  "bin": "dist/cli.js",
   "scripts": {
-    "build": "babel src/ -d lib/",
+    "build": "babel src/ -d dist/",
     "prepublish": "npm run build",
     "test": "istanbul cover _mocha test/index.js",
     "test-coveralls": "istanbul-coveralls"
