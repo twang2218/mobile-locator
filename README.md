@@ -145,19 +145,16 @@ Map url: http://api.map.baidu.com/marker?location=39.997967,116.479653&title=_&c
 const api = require('./mobile-locator').api;
 
 const locate = api('google', { key: YOUR_GOOGLE_API_KEY });
-locate({ mcc: 460, mnc: 0, lac: 4219, cid: 20925 }, (error, location) => {
-  if (error) {
-    console.error(error);
-  }
-  console.log(location);
-});
-
+locate({ mcc: 460, mnc: 0, lac: 4219, cid: 20925 })
+  .then(location => console.log(JSON.stringify(location, null, 2)));
 ```
 
 The output would be:
 
 ```javascript
-{ longitude: 116.46679499999998,
+{
+  longitude: 116.46679499999998,
   latitude: 39.9910226,
-  accuracy: 606 }
+  accuracy: 606
+}
 ```

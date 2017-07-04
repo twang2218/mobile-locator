@@ -18,13 +18,12 @@ function parseCell(info) {
 
 function parseArguments(data) {
   const result = {};
-  data.split(',')
-    .forEach((x) => {
-      const pair = x.split(':');
-      if (pair[0]) {
-        result[pair[0].trim()] = pair[1].trim();
-      }
-    });
+  data.split(',').forEach((x) => {
+    const pair = x.split(':');
+    if (pair[0]) {
+      result[pair[0].trim()] = pair[1].trim();
+    }
+  });
   return result;
 }
 
@@ -32,14 +31,23 @@ function setup() {
   program
     .description('Locate geolocation information based on Cell base station data')
     .version(pkinfo.version)
-    .option('-c, --cell <cell>',
-      'Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"', parseCell)
-    .option('-e, --engine <engine>',
+    .option(
+      '-c, --cell <cell>',
+      'Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"',
+      parseCell,
+    )
+    .option(
+      '-e, --engine <engine>',
       'Geolocation service engine. {cellocation, google, gpsspg, haoservice, mozilla, mylnikov, opencellid, unwiredlabs, yandex}. Default: google',
-      /^(cellocation|google|gpsspg|haoservice|mozilla|mylnikov|opencellid|unwiredlabs|yandex)$/i, 'google')
+      /^(cellocation|google|gpsspg|haoservice|mozilla|mylnikov|opencellid|unwiredlabs|yandex)$/i,
+      'google',
+    )
     .option('-a, --arguments <arguments>', 'Arguments for geolocation engine. e.g. "key:XXX,oid:123".', parseArguments)
-    .option('-m, --map <map>', 'Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}. Default: google',
-      /^(google|bing|google\.cn|bing\.cn|openstreetmap|baidu)$/i)
+    .option(
+      '-m, --map <map>',
+      'Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}. Default: google',
+      /^(google|bing|google\.cn|bing\.cn|openstreetmap|baidu)$/i,
+    )
     .option('-v, --verbose', 'Verbose output.')
     .on('--help', () => {
       console.log('  Examples:');
@@ -61,26 +69,25 @@ function main() {
     if (program.verbose) {
       console.log('Cell: %j', program.cell);
     }
-    locate(program.cell, (error, location) => {
-      if (error) {
+    locate(program.cell)
+      .then((location) => {
+        if (program.verbose || program.map) {
+          //  Verbose or need to show a map url
+          console.log('Location: %j', location);
+        } else {
+          //  output pure JSON
+          console.log(JSON.stringify(location));
+        }
+
+        if (program.map) {
+          const url = map(program.map, location);
+          console.log(`Map url: ${url}`);
+        }
+      })
+      .catch((error) => {
         console.error(error);
         program.help();
-        return;
-      }
-
-      if (program.verbose || program.map) {
-        //  Verbose or need to show a map url
-        console.log('Location: %j', location);
-      } else {
-        //  output pure JSON
-        console.log(JSON.stringify(location));
-      }
-
-      if (program.map) {
-        const url = map(program.map, location);
-        console.log(`Map url: ${url}`);
-      }
-    });
+      });
   } else {
     console.error('Missing cell base station information.');
     program.help();

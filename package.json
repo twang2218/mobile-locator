@@ -51,9 +51,10 @@
     "jest": "^20.0.4"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
     "commander": "^2.9.0",
     "debug": "^2.6.8",
     "lodash": "^4.17.4",
-    "request": "^2.81.0"
+    "request-promise": "^4.2.1"
   }
 }

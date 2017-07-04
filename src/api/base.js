@@ -1,5 +1,5 @@
-const request = require('request');
-const isFunction = require('lodash/isFunction');
+const request = require('request-promise');
+const debug = require('debug')('mobile-locator');
 
 /* eslint-disable class-methods-use-this */
 class Base {
@@ -33,45 +33,45 @@ class Base {
     return body;
   }
 
-  doCallbank(callback, error, value) {
-    if (isFunction(callback)) {
-      callback(error, value);
-    }
-  }
-
-  locate(cell, callback) {
+  locate(cell) {
     //  Send request
-    const options = this.getRequestSettings(cell);
-    options.timeout = this.timeout;
+    const options = Object.assign({}, this.getRequestSettings(cell), {
+      resolveWithFullResponse: true,
+      timeout: this.timeout,
+    });
 
-    request(options, (error, response, body) => {
-      if (error) {
-        if (error.code === 'ETIMEDOUT' || error.code === 'ESOCKETTIMEDOUT') {
-          if (error.connect === true) {
-            callback('Request connection timeout.', null);
-          } else {
-            callback('Request timeout.', null);
-          }
-        } else {
-          //  Callback with error
-          this.doCallbank(callback, `Request Error: ${JSON.stringify(error)}`, null);
-        }
-      } else {
-        const b = this.preprocessBody(body);
+    return request(options)
+      .then((response) => {
+        const b = this.preprocessBody(response.body);
         if (response.statusCode === 200) {
           if (!this.validate(b)) {
             //  Callback with error message
-            this.doCallbank(callback, `Response Error: ${JSON.stringify(this.parseError(b))}`, null);
+            throw new Error(this.parseError(b));
           } else {
             //  Callback with location info
-            this.doCallbank(callback, null, this.parseLocation(b));
+            return this.parseLocation(b);
           }
         } else {
           //  Callback with HTTP Status Error Code
-          this.doCallbank(callback, `Response Error: ${response.statusCode}: ${response.statusMessage} (${JSON.stringify(this.parseError(b))})`, null);
+          throw new Error(`${response.statusCode}: ${response.statusMessage} (${this.parseError(b)})`);
         }
-      }
-    });
+      })
+      .catch((error) => {
+        debug(error);
+        if (
+          error.message &&
+          (error.message.indexOf('ETIMEDOUT') >= 0 || error.message.indexOf('ESOCKETTIMEDOUT') >= 0)
+        ) {
+          if (error.connect === true) {
+            throw new Error('Request connection timeout.');
+          } else {
+            throw new Error('Request timeout.');
+          }
+        } else {
+          //  Callback with error
+          throw error;
+        }
+      });
   }
 }
 
