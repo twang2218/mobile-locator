@@ -22,9 +22,8 @@
 [dependency-url]: https://gemnasium.com/twang2218/mobile-locator
 [dependency-image]: http://img.shields.io/gemnasium/twang2218/mobile-locator.svg
 
-[coverage-url]: https://coveralls.io/r/twang2218/mobile-locator
-[coverage-image]: http://img.shields.io/coveralls/twang2218/mobile-locator.svg
-
+[coverage-url]: https://coveralls.io/github/twang2218/mobile-locator?branch=master
+[coverage-image]: https://coveralls.io/repos/github/twang2218/mobile-locator/badge.svg?branch=master
 
 Get geolocation from cell tower information.
 
