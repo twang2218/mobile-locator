@@ -58,5 +58,5 @@ node_modules
 
 
 ### Project ignore
-config.json
+.env
 dist/

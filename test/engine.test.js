@@ -1,24 +1,21 @@
-/* eslint-disable strict */
-'use strict';
+/* eslint-disable no-undef */
 
-const locator = require('../lib').locator;
-const expect = require('chai').expect;
-const fs = require('fs');
+const locator = require('../src').locator;
+const debug = require('debug')('mobile-locator');
 
-let config = {};
-try {
-  config = JSON.parse(fs.readFileSync(`${__dirname}/config.json`));
-} catch (e) {
-  console.error('Cannot find `config.json`. Use ENV variable instead.');
-  config.google_api_key = config.google_api_key || process.env.GOOGLE_API_KEY;
-  config.gpsspg_oid = config.gpsspg_oid || process.env.GPSSPG_OID;
-  config.gpsspg_key = config.gpsspg_key || process.env.GPSSPG_KEY;
-  config.haoservice_key = config.haoservice_key || process.env.HAOSERVICE_KEY;
-  config.mozilla_api_key = config.mozilla_api_key || process.env.MOZILLA_API_KEY;
-  config.opencellid_key = config.opencellid_key || process.env.OPENCELLID_KEY;
-  config.unwiredlabs_token = config.unwiredlabs_token || process.env.UNWIREDLABS_TOKEN;
-  config.yandex_key = config.yandex_key || process.env.YANDEX_KEY;
-}
+const config = {
+  google_api_key: process.env.GOOGLE_API_KEY,
+  gpsspg_oid: process.env.GPSSPG_OID,
+  gpsspg_key: process.env.GPSSPG_KEY,
+  haoservice_key: process.env.HAOSERVICE_KEY,
+  mozilla_api_key: process.env.MOZILLA_API_KEY,
+  opencellid_key: process.env.OPENCELLID_KEY,
+  unwiredlabs_token: process.env.UNWIREDLABS_TOKEN,
+  yandex_key: process.env.YANDEX_KEY,
+};
+
+debug(`env: ${JSON.stringify(process.env, null, 2)}`);
+debug(`config: ${JSON.stringify(config, null, 2)}`);
 
 const cells = [{
   mcc: 460,
@@ -64,43 +61,59 @@ const cells = [{
   longitude: 100.7515358,
 }];
 
-/* eslint-disable no-undef,no-unused-expressions */
+expect.extend({
+  toBeWithin(received, start, finish) {
+    if (received < start) {
+      return {
+        message: () => `expected ${received} not to be less than ${start}`,
+        pass: false,
+      };
+    } else if (received > finish) {
+      return {
+        message: () => `expected ${received} not to be greater than ${finish}`,
+        pass: false,
+      };
+    }
+    return {
+      message: () => `expected ${received} to be >= ${start} and <= ${finish}`,
+      pass: true,
+    };
+  },
+});
 
 function checkEngine(name, options, cell, extra) {
   it(`engine.locate() - '${name}' : ${JSON.stringify(cell)}`, (done) => {
+    debug(`engine.locate() => name: '${name}', options: '${JSON.stringify(options)}'), cell: '${JSON.stringify(cell)}, extra: '${JSON.stringify(extra)}' `);
     const engine = locator.createEngine(name, options);
     engine.locate(cell, (error, location) => {
-      expect(error).to.be.null;
-      expect(location).to.not.be.null;
-      expect(location.latitude).to.be.within(-90, 90);
-      expect(location.longitude).to.be.within(-180, 180);
-      expect(location.accuracy).to.be.within(0, 10000);
+      expect(error).toBeNull();
+      expect(location).toBeDefined();
+      expect(location.latitude).toBeWithin(-90, 90);
+      expect(location.longitude).toBeWithin(-180, 180);
+      expect(location.accuracy).toBeWithin(0, 10000);
       if (cell.latitude) {
-        expect(location.latitude).to.be.within(cell.latitude - 0.02, cell.latitude + 0.02);
-        expect(location.longitude).to.be.within(cell.longitude - 0.02, cell.longitude + 0.02);
+        expect(location.latitude).toBeCloseTo(cell.latitude, 1);
+        expect(location.longitude).toBeCloseTo(cell.longitude, 1);
       }
       if (extra) {
         extra(location);
       }
       done();
     });
-  });
+  }, 20000);
 }
+
 /* eslint-disable func-names */
 //  To keep the `this.timeout(10000)` context, we will not use the arrow function here.
-describe('Geolocation Engine', function () {
-  this.timeout(20000);
+describe('Geolocation Engine', () => {
+  // this.timeout(20000);
 
-  it('locator.createEngine()', () => {
-    expect(locator.createEngine('cellocation')).to.have.property('locate');
-    expect(locator.createEngine('google')).to.have.property('locate');
-    expect(locator.createEngine('gpsspg')).to.have.property('locate');
-    expect(locator.createEngine('haoservice')).to.have.property('locate');
-    expect(locator.createEngine('mozilla')).to.have.property('locate');
-    expect(locator.createEngine('mylnikov')).to.have.property('locate');
-    expect(locator.createEngine('opencellid')).to.have.property('locate');
-    expect(locator.createEngine('unwiredlabs')).to.have.property('locate');
-    expect(locator.createEngine('yandex')).to.have.property('locate');
+  describe('Engine creation', () => {
+    ['cellocation', 'google', 'gpsspg', 'haoservice', 'mozilla', 'mylnikov', 'opencellid', 'unwiredlabs', 'yandex'].forEach((name) => {
+      it(`locator.createEngine(${name}) should contain 'locate()' function`, () => {
+        expect(locator.createEngine(name).locate).toEqual(expect.any(Function));
+      });
+    });
   });
 
   //  Cellocation
@@ -172,13 +185,11 @@ describe('Geolocation Engine', function () {
     it(`engine.locate() - '${name}' with timeout`, (done) => {
       const engine = locator.createEngine(name, options);
       engine.locate(cell, (error, location) => {
-        expect(location).to.be.null;
-        expect(error).to.not.be.null;
-        expect(error.indexOf('timeout')).to.be.least(0);
+        expect(location).toBeNull();
+        expect(error).toBeDefined();
+        expect(error.indexOf('timeout')).toBeGreaterThanOrEqual(0);
         done();
       });
     });
   });
 });
-
-/* eslint-enable no-undef */
