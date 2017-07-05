@@ -9,10 +9,11 @@ const services = {
   baidu: 'http://api.map.baidu.com/marker?location=:lat,:long&title=_&content=:addr&output=html&autoOpen=true',
 };
 
-const map = (service, location) => services[service]
-      .replace(/:lat/g, location.latitude)
-      .replace(/:long/g, location.longitude)
-      .replace(/:range/g, location.accuracy || 100)
-      .replace(/:addr/g, location.address ? querystring.escape(location.address) : '');
+const map = (service, location) =>
+  services[service]
+    .replace(/:lat/g, location.latitude)
+    .replace(/:long/g, location.longitude)
+    .replace(/:range/g, location.accuracy || 100)
+    .replace(/:addr/g, location.address ? querystring.escape(location.address) : '');
 
 module.exports = map;

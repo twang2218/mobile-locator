@@ -1,7 +1,5 @@
-const map = require('./mapservice');
-
 /* eslint-disable global-require */
-const Locators = {
+const Apis = {
   cellocation: require('./api/cellocation'),
   google: require('./api/google-geolocation'),
   gpsspg: require('./api/gpsspg'),
@@ -14,11 +12,8 @@ const Locators = {
 };
 
 const api = (service, options) => {
-  const locator = new Locators[service](options);
+  const locator = new Apis[service](options);
   return (cell, callback) => locator.locate(cell, callback);
 };
 
-module.exports = {
-  api,
-  map,
-};
+module.exports = api;

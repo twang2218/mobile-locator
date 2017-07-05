@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-const api = require('../src').api;
+const api = require('../src');
 const debug = require('debug')('mobile-locator');
 
 const config = {

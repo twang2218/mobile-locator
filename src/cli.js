@@ -2,7 +2,8 @@
 
 const program = require('commander');
 const pkinfo = require('../package');
-const { api, map } = require('.');
+const api = require('.');
+const map = require('./map');
 
 function parseCell(info) {
   const result = {};
