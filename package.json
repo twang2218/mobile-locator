@@ -1,6 +1,6 @@
 {
   "name": "mobile-locator",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Locate geolocation information based on Cell base station data",
   "author": "Tao Wang <twang2218@gmail.com>",
   "repository": "twang2218/mobile-locator",
