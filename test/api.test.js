@@ -89,35 +89,29 @@ function checkEngine(name, options, cell, extra) {
   it(
     `locate() - '${name}' : ${JSON.stringify(cell)}`,
     () => {
-      debug(
-        `locate() => name: '${name}', options: '${JSON.stringify(options)}'), cell: '${JSON.stringify(
-          cell,
-        )}, extra: '${JSON.stringify(extra)}' `,
-      );
+      debug(`locate() => name: '${name}', options: '${JSON.stringify(options)}'), cell: '${JSON.stringify(cell)}, extra: '${JSON.stringify(extra)}' `);
       const locate = api(name, options);
 
       expect.assertions(7);
-      return expect(
-        locate(cell)
-          .then((location) => {
-            expect(location).toBeDefined();
-            expect(location.latitude).toBeWithin(-90, 90);
-            expect(location.longitude).toBeWithin(-180, 180);
-            expect(location.accuracy).toBeWithin(0, 10000);
-            if (cell.latitude) {
-              expect(location.latitude).toBeCloseTo(cell.latitude, 1);
-              expect(location.longitude).toBeCloseTo(cell.longitude, 1);
-            }
-            if (extra) {
-              extra(location);
-            }
-            return location;
-          })
-          .catch((error) => {
-            debug(error);
-            throw error;
-          }),
-      ).resolves.toBeDefined();
+      return expect(locate(cell)
+        .then((location) => {
+          expect(location).toBeDefined();
+          expect(location.latitude).toBeWithin(-90, 90);
+          expect(location.longitude).toBeWithin(-180, 180);
+          expect(location.accuracy).toBeWithin(0, 10000);
+          if (cell.latitude) {
+            expect(location.latitude).toBeCloseTo(cell.latitude, 1);
+            expect(location.longitude).toBeCloseTo(cell.longitude, 1);
+          }
+          if (extra) {
+            extra(location);
+          }
+          return location;
+        })
+        .catch((error) => {
+          debug(error);
+          throw error;
+        })).resolves.toBeDefined();
     },
     20000,
   );
@@ -201,9 +195,9 @@ describe('Geolocation Engine', () => {
     it('locate() - "cellocation" with timeout', () => {
       const locate = api('cellocation', { timeout: 1, system: 'wgs84' });
       expect.assertions(1);
-      return expect(locate(cells[0])).rejects.toEqual(
-        expect.objectContaining({ message: expect.stringMatching(/timeout/i) }),
-      );
+      return expect(locate(cells[0])).rejects.toEqual(expect.objectContaining({
+        message: expect.stringMatching(/timeout/i),
+      }));
     });
   });
 });

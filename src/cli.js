@@ -9,10 +9,7 @@ function parseCell(info) {
   const result = {};
   const arr = info.split(',');
   if (arr.length === 4) {
-    result.mcc = arr[0];
-    result.mnc = arr[1];
-    result.lac = arr[2];
-    result.cid = arr[3];
+    [result.mcc, result.mnc, result.lac, result.cid] = arr;
   }
   return result;
 }

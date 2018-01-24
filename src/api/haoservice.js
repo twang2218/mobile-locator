@@ -5,7 +5,6 @@ const API = 'http://api.haoservice.com/api/getlbs';
 
 /* eslint-disable class-methods-use-this */
 class HaoService extends Base {
-
   constructor(options) {
     super(options);
     if (options) {

@@ -42,19 +42,19 @@
     "node": ">=4.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-preset-env": "^1.5.2",
-    "coveralls": "^2.13.1",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.5.0",
-    "jest": "^20.0.4"
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "jest": "^22.1.4"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "commander": "^2.11.0",
-    "debug": "^2.6.8",
+    "bluebird": "^3.5.1",
+    "commander": "^2.13.0",
+    "debug": "^3.1.0",
     "lodash": "^4.17.4",
-    "request-promise": "^4.2.1"
+    "request-promise": "^4.2.2"
   }
 }
