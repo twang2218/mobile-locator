@@ -1,7 +1,7 @@
 const has = require('lodash/has');
 const Base = require('./base');
 
-const API = 'http://api.cellocation.com/cell/';
+const API = 'http://api.cellocation.com:81/cell/';
 
 /* eslint-disable class-methods-use-this */
 class Cellocation extends Base {
