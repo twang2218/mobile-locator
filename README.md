@@ -52,7 +52,7 @@ Create the location engine by given name and options.
  `haoservice` | `key`: HaoService API key, <br> `system`_(optional)_: Coordinate system: `0`: gcj02; `1`:bd09; `2`:wgs84_(Default)_
  `mozilla` | `key`: Mozilla API key
  `mylnikov` | `data`_(optional)_: `open`: Use open source data.
- `unwiredlabs` | `token`: UnwiredLabs Location API token
+ `unwiredlabs` | `key`: UnwiredLabs Location API token
  `yandex` | `key`: Yandex API key
 
 Besides the above engine-specific options,  more general options are also available:

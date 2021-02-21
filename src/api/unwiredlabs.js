@@ -15,7 +15,7 @@ class UnwiredLabs extends Base {
   constructor(options) {
     super(options);
     if (options) {
-      this.token = options.token;
+      this.key = options.key;
     }
   }
 
@@ -24,7 +24,7 @@ class UnwiredLabs extends Base {
       method: 'POST',
       uri: API,
       json: {
-        token: this.token,
+        token: this.key,
         radio: 'gsm',
         mcc: cell.mcc,
         mnc: cell.mnc,
