@@ -6,7 +6,6 @@ const Apis = {
   haoservice: require('./api/haoservice'),
   mozilla: require('./api/mozilla-geolocation'),
   mylnikov: require('./api/mylnikov'),
-  opencellid: require('./api/opencellid'),
   unwiredlabs: require('./api/unwiredlabs'),
   yandex: require('./api/yandex'),
 };

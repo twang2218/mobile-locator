@@ -9,7 +9,6 @@ const config = {
   gpsspg_key: process.env.GPSSPG_KEY,
   haoservice_key: process.env.HAOSERVICE_KEY,
   mozilla_api_key: process.env.MOZILLA_API_KEY,
-  opencellid_key: process.env.OPENCELLID_KEY,
   unwiredlabs_token: process.env.UNWIREDLABS_TOKEN,
   yandex_key: process.env.YANDEX_KEY,
 };
@@ -127,7 +126,6 @@ describe('Geolocation Engine', () => {
       'haoservice',
       'mozilla',
       'mylnikov',
-      'opencellid',
       'unwiredlabs',
       'yandex',
     ].forEach((name) => {
@@ -171,11 +169,6 @@ describe('Geolocation Engine', () => {
     checkEngine('mylnikov', null, cells[1]);
     checkEngine('mylnikov', { data: 'open' }, cells[2]);
     checkEngine('mylnikov', null, cells[3]);
-  });
-
-  //  OpenCellID
-  describe('OpenCellID', () => {
-    checkEngine('opencellid', { key: config.opencellid_key }, cells[2]);
   });
 
   //  UnwiredLabs
