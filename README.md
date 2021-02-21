@@ -35,8 +35,10 @@ Currently, the following APIs are implemented:
 - `haoservice`: [HaoService.com API (China)](http://www.haoservice.com/docs/1)
 - `mozilla`: [Mozilla Geolocation API](https://location.services.mozilla.com/api)
 - `mylnikov`: [Mylnikov Geolocation API](https://www.mylnikov.org/archives/1059)
-- `unwiredlabs`: [UnwiredLabs Location API](https://unwiredlabs.com/)
+- `unwiredlabs`: [UnwiredLabs Location API](https://unwiredlabs.com/) (same as OpenCellid<sup>*</sup>)
 - `yandex`: [Yandex Geolocation API (Russian)](https://tech.yandex.ru/locator/doc/dg/api/geolocation-api_json-docpage/)
+
+<sup>*</sup>OpenCellid is operated by UnwiredLabs and their APIs have been merged into one, meaning that you can use the `unwiredlabs` API with an API key from OpenCellid.
 
 # Library
 
