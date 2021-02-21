@@ -5,8 +5,6 @@ const debug = require('debug')('mobile-locator');
 
 const config = {
   google_api_key: process.env.GOOGLE_API_KEY,
-  gpsspg_oid: process.env.GPSSPG_OID,
-  gpsspg_key: process.env.GPSSPG_KEY,
   haoservice_key: process.env.HAOSERVICE_KEY,
   mozilla_api_key: process.env.MOZILLA_API_KEY,
   unwiredlabs_token: process.env.UNWIREDLABS_TOKEN,
@@ -122,7 +120,6 @@ describe('Geolocation Engine', () => {
     [
       'cellocation',
       'google',
-      'gpsspg',
       'haoservice',
       'mozilla',
       'mylnikov',
@@ -146,11 +143,6 @@ describe('Geolocation Engine', () => {
   describe('Google Geolocation', () => {
     checkEngine('google', { key: config.google_api_key }, cells[0]);
     checkEngine('google', { key: config.google_api_key }, cells[1]);
-  });
-
-  //  GPSspg
-  describe.skip('GPSspg.com', () => {
-    checkEngine('gpsspg', { oid: config.gpsspg_oid, key: config.gpsspg_key }, cells[5]);
   });
 
   //  HaoService

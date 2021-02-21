@@ -36,8 +36,8 @@ function setup() {
     )
     .option(
       '-e, --engine <engine>',
-      'Geolocation service engine. {cellocation, google, gpsspg, haoservice, mozilla, mylnikov, unwiredlabs, yandex}. Default: google',
-      /^(cellocation|google|gpsspg|haoservice|mozilla|mylnikov|unwiredlabs|yandex)$/i,
+      'Geolocation service engine. {cellocation, google, haoservice, mozilla, mylnikov, unwiredlabs, yandex}. Default: google',
+      /^(cellocation|google|haoservice|mozilla|mylnikov|unwiredlabs|yandex)$/i,
       'google',
     )
     .option('-a, --arguments <arguments>', 'Arguments for geolocation engine. e.g. "key:XXX,oid:123".', parseArguments)

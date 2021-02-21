@@ -30,7 +30,6 @@ Get geolocation from cell tower information.
 Currently, the following APIs are implemented:
 
 - `cellocation`: [Cellocation.com API (China)](http://www.cellocation.com/interfac/)
-- `gpsspg`: [GPSspg.com API (China)](http://www.gpsspg.com/api/bs/)
 - `google`: [Google Geolocation API](https://developers.google.com/maps/documentation/geolocation/intro)
 - `haoservice`: [HaoService.com API (China)](http://www.haoservice.com/docs/1)
 - `mozilla`: [Mozilla Geolocation API](https://location.services.mozilla.com/api)
@@ -50,7 +49,6 @@ Create the location engine by given name and options.
 --- | ---
  `cellocation` | `system`_(optional)_: Coordinate system: `wgs84`_(Default)_, `gcj02`, `bd09`.
  `google` | `key`: Google API key
- `gpsspg` | `key`: GPSspg API key, <br> `oid`: GPSspg OID,<br> `system`_(optional)_: Coordinate system: `0`:wgs84_(Default)_; `1`:gcj02; `2`:bd09; `3`:QQ Maps; `4`:MapBar
  `haoservice` | `key`: HaoService API key, <br> `system`_(optional)_: Coordinate system: `0`: gcj02; `1`:bd09; `2`:wgs84_(Default)_
  `mozilla` | `key`: Mozilla API key
  `mylnikov` | `data`_(optional)_: `open`: Use open source data.
@@ -116,7 +114,7 @@ Options:
   -h, --help                   output usage information
   -V, --version                output the version number
   -c, --cell <cell>            Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"
-  -e, --engine <engine>        Geolocation service engine. {cellocation, google, gpsspg, haoservice, mozilla, mylnikov, unwiredlabs, yandex}. Default: google
+  -e, --engine <engine>        Geolocation service engine. {cellocation, google, haoservice, mozilla, mylnikov, unwiredlabs, yandex}. Default: google
   -a, --arguments <arguments>  Arguments for geolocation engine. e.g. "key:XXX,oid:123".
   -m, --map <map>              Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}.
   -v, --verbose                Verbose output.
