@@ -14,15 +14,20 @@ class Cellocation extends Base {
     }
   }
 
-  getRequestSettings(cell) {
+  getRequestSettings({
+    cellId,
+    locationAreaCode,
+    mobileCountryCode,
+    mobileNetworkCode,
+  }) {
     return {
       uri: API,
       json: true,
       qs: {
-        mcc: cell.mcc,
-        mnc: cell.mnc,
-        lac: cell.lac,
-        ci: cell.cid,
+        mcc: mobileCountryCode,
+        mnc: mobileNetworkCode,
+        lac: locationAreaCode,
+        ci: cellId,
         coord: this.system,
         output: 'json',
       },

@@ -15,17 +15,24 @@ class Mylnikov extends Base {
     }
   }
 
-  getRequestSettings(cell) {
+  getRequestSettings({
+    cellId,
+    locationAreaCode,
+    mobileCountryCode,
+    mobileNetworkCode,
+    signalStrength,
+  }) {
     return {
       uri: API,
       json: true,
       qs: {
         v: API_VERSION,
         data: this.data,
-        mcc: cell.mcc,
-        mnc: cell.mnc,
-        lac: cell.lac,
-        cellid: cell.cid,
+        mcc: mobileCountryCode,
+        mnc: mobileNetworkCode,
+        lac: locationAreaCode,
+        cellid: cellId,
+        ...(signalStrength && { ss: signalStrength }),
       },
     };
   }

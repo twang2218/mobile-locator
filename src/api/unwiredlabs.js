@@ -19,18 +19,24 @@ class UnwiredLabs extends Base {
     }
   }
 
-  getRequestSettings(cell) {
+  getRequestSettings({
+    cellId,
+    locationAreaCode,
+    mobileCountryCode,
+    mobileNetworkCode,
+    signalStrength,
+  }) {
     return {
       method: 'POST',
       uri: API,
       json: {
         token: this.key,
-        radio: 'gsm',
-        mcc: cell.mcc,
-        mnc: cell.mnc,
+        mcc: mobileCountryCode,
+        mnc: mobileNetworkCode,
         cells: [{
-          lac: cell.lac,
-          cid: cell.cid,
+          lac: locationAreaCode,
+          cid: cellId,
+          ...(signalStrength && { signal: signalStrength }),
         }],
         address: 1,
       },

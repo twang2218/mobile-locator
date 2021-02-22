@@ -33,9 +33,9 @@ class Base {
     return body;
   }
 
-  locate(cell) {
+  locate(cellInfo) {
     //  Send request
-    const options = Object.assign({}, this.getRequestSettings(cell), {
+    const options = Object.assign({}, this.getRequestSettings(cellInfo), {
       resolveWithFullResponse: true,
       timeout: this.timeout,
     });

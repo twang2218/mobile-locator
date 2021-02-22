@@ -13,15 +13,20 @@ class HaoService extends Base {
     }
   }
 
-  getRequestSettings(cell) {
+  getRequestSettings({
+    cellId,
+    locationAreaCode,
+    mobileCountryCode,
+    mobileNetworkCode,
+  }) {
     return {
       uri: API,
       qs: {
         oid: this.oid,
-        mcc: cell.mcc,
-        mnc: cell.mnc,
-        lac: cell.lac,
-        cell_id: cell.cid,
+        mcc: mobileNetworkCode,
+        mnc: mobileCountryCode,
+        lac: locationAreaCode,
+        cell_id: cellId,
         key: this.key,
         type: this.system || 2,
         output: 'json',

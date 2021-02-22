@@ -9,7 +9,12 @@ function parseCell(info) {
   const result = {};
   const arr = info.split(',');
   if (arr.length === 4) {
-    [result.mcc, result.mnc, result.lac, result.cid] = arr;
+    [
+      result.mobileCountryCode,
+      result.mobileNetworkCode,
+      result.locationAreaCode,
+      result.cellId,
+    ] = arr;
   }
   return result;
 }
@@ -40,6 +45,7 @@ function setup() {
       /^(cellocation|google|haoservice|mozilla|mylnikov|unwiredlabs|yandex)$/i,
       'google',
     )
+    .option('-s, --signalStrength <number>', 'Signal strength [dBm], e.g. "-75".')
     .option('-a, --arguments <arguments>', 'Arguments for geolocation engine. e.g. "key:XXX,oid:123".', parseArguments)
     .option(
       '-m, --map <map>',
@@ -65,9 +71,9 @@ function main() {
   const locate = api(program.engine, program.arguments);
   if (program.cell) {
     if (program.verbose) {
-      console.log('Cell: %j', program.cell);
+      console.log('cellInfo: %j', { ...program.cell, signalStrength: program.signalStrength });
     }
-    locate(program.cell)
+    locate({ ...program.cell, signalStrength: program.signalStrength })
       .then((location) => {
         if (program.verbose || program.map) {
           //  Verbose or need to show a map url

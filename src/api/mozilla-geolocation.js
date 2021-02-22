@@ -3,7 +3,14 @@ const GoogleGeolocation = require('./google-geolocation');
 const API = 'https://location.services.mozilla.com/v1/geolocate';
 
 class MozillaGeolocation extends GoogleGeolocation {
-  getRequestSettings(cell) {
+  getRequestSettings({
+    cellId,
+    locationAreaCode,
+    mobileCountryCode,
+    mobileNetworkCode,
+    signalStrength,
+    accessTechnology,
+  }) {
     return {
       method: 'POST',
       uri: API,
@@ -13,10 +20,12 @@ class MozillaGeolocation extends GoogleGeolocation {
       json: {
         considerIp: false,
         cellTowers: [{
-          cellId: cell.cid,
-          locationAreaCode: cell.lac,
-          mobileCountryCode: cell.mcc,
-          mobileNetworkCode: cell.mnc,
+          cellId,
+          locationAreaCode,
+          mobileCountryCode,
+          mobileNetworkCode,
+          ...(accessTechnology && { radioType: accessTechnology }),
+          ...(signalStrength && { signalStrength }),
         }],
       },
     };

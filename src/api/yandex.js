@@ -12,17 +12,22 @@ class Yandex extends Base {
     }
   }
 
-  getRequestSettings(cell) {
+  getRequestSettings({
+    cellId,
+    locationAreaCode,
+    mobileCountryCode,
+    mobileNetworkCode,
+  }) {
     const json = {
       common: {
         version: '1.0',
         api_key: this.key,
       },
       gsm_cells: [{
-        countrycode: cell.mcc,
-        operatorid: cell.mnc,
-        lac: cell.lac,
-        cellid: cell.cid,
+        countrycode: mobileCountryCode,
+        operatorid: mobileNetworkCode,
+        lac: locationAreaCode,
+        cellid: cellId,
       }],
     };
     return {
