@@ -46,6 +46,11 @@ function setup() {
       'google',
     )
     .option('-s, --signalStrength <number>', 'Signal strength [dBm], e.g. "-75".')
+    .option(
+      '-r, --radio <radioType>',
+      'Radio type/access technology. {gsm, cdma, wcdma, lte}. e.g. "lte".',
+      /^(gsm|cdma|wcdma|lte)$/i,
+    )
     .option('-a, --arguments <arguments>', 'Arguments for geolocation engine. e.g. "key:XXX,oid:123".', parseArguments)
     .option(
       '-m, --map <map>',
@@ -73,7 +78,7 @@ function main() {
     if (program.verbose) {
       console.log('cellInfo: %j', { ...program.cell, signalStrength: program.signalStrength });
     }
-    locate({ ...program.cell, signalStrength: program.signalStrength })
+    locate({ ...program.cell, signalStrength: program.signalStrength, accessTechnology: program.radio })
       .then((location) => {
         if (program.verbose || program.map) {
           //  Verbose or need to show a map url

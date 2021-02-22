@@ -18,6 +18,7 @@ class GoogleGeolocation extends Base {
     mobileCountryCode,
     mobileNetworkCode,
     signalStrength,
+    accessTechnology,
   }) {
     return {
       method: 'POST',
@@ -26,6 +27,7 @@ class GoogleGeolocation extends Base {
         key: this.key,
       },
       json: {
+        ...(accessTechnology && { radioType: accessTechnology }),
         considerIp: false,
         cellTowers: [{
           cellId,

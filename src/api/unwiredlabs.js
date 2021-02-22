@@ -25,6 +25,7 @@ class UnwiredLabs extends Base {
     mobileCountryCode,
     mobileNetworkCode,
     signalStrength,
+    accessTechnology,
   }) {
     return {
       method: 'POST',
@@ -33,6 +34,7 @@ class UnwiredLabs extends Base {
         token: this.key,
         mcc: mobileCountryCode,
         mnc: mobileNetworkCode,
+        ...(accessTechnology && { radio: accessTechnology }),
         cells: [{
           lac: locationAreaCode,
           cid: cellId,
