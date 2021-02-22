@@ -98,9 +98,9 @@ The output would be:
 
 ```javascript
 {
-  longitude: 116.46679499999998,
-  latitude: 39.9910226,
-  accuracy: 606
+  longitude: 116.46661859999998,
+  latitude: 39.991583399999996,
+  accuracy: 1098
 }
 ```
 
@@ -119,12 +119,12 @@ Locate geolocation information based on Cell base station data
 Options:
 
     -V, --version                  output the version number
-    -c, --cell <cell>              Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"
-    -e, --engine <engine>          Geolocation service engine. {cellocation, google, haoservice, mozilla, mylnikov, unwiredlabs, yandex}. Default: google (default: google)
+    -c, --cell <string>            Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"
+    -e, --engine <string>          Geolocation service engine. {cellocation, google, haoservice, mozilla, mylnikov, unwiredlabs, yandex}. Default: google (default: google)
     -s, --signalStrength <number>  Signal strength [dBm], e.g. "-75".
-    -r, --radio <radioType>        Radio type/access technology. {gsm, cdma, wcdma, lte}. e.g. "lte".
-    -a, --arguments <arguments>    Arguments for geolocation engine. e.g. "key:XXX,oid:123".
-    -m, --map <map>                Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}. Default: google
+    -r, --radio <string>           Radio type/access technology. {gsm, cdma, wcdma, lte}. e.g. "lte".
+    -a, --arguments <string>       Arguments for geolocation engine. e.g. "key:XXX,oid:123".
+    -m, --map <string>             Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}. Default: google
     -v, --verbose                  Verbose output.
     -h, --help                     output usage information
 Examples:

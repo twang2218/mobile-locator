@@ -35,25 +35,25 @@ function setup() {
     .description('Locate geolocation information based on Cell base station data')
     .version(pkinfo.version)
     .option(
-      '-c, --cell <cell>',
+      '-c, --cell <string>',
       'Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"',
       parseCell,
     )
     .option(
-      '-e, --engine <engine>',
+      '-e, --engine <string>',
       'Geolocation service engine. {cellocation, google, haoservice, mozilla, mylnikov, unwiredlabs, yandex}. Default: google',
       /^(cellocation|google|haoservice|mozilla|mylnikov|unwiredlabs|yandex)$/i,
       'google',
     )
     .option('-s, --signalStrength <number>', 'Signal strength [dBm], e.g. "-75".')
     .option(
-      '-r, --radio <radioType>',
+      '-r, --radio <string>',
       'Radio type/access technology. {gsm, cdma, wcdma, lte}. e.g. "lte".',
       /^(gsm|cdma|wcdma|lte)$/i,
     )
-    .option('-a, --arguments <arguments>', 'Arguments for geolocation engine. e.g. "key:XXX,oid:123".', parseArguments)
+    .option('-a, --arguments <string>', 'Arguments for geolocation engine. e.g. "key:XXX,oid:123".', parseArguments)
     .option(
-      '-m, --map <map>',
+      '-m, --map <string>',
       'Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}. Default: google',
       /^(google|bing|google\.cn|bing\.cn|openstreetmap|baidu)$/i,
     )
