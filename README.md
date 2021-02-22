@@ -62,9 +62,22 @@ Besides the above engine-specific options,  more general options are also availa
 
 The returned value is a `locate()` function, which will be described in the next section.
 
-## locate(info)
+## locate(cellInfo)
 
-`info` should contain cell information, including `mnc`, `mcc`, `lac` and `cid`.
+`info` is an object that should contain cell information, including `mobileNetworkCode`, `mobileCountryCode`, `locationAreaCode` and `cellId`. Additionally, information about the `accessTechnology` as well as `signalStrength` can be added for a more accurate position estimate, this is however optional.
+
+Here's an excample:
+
+```js
+locate({
+  mobileCountryCode: '240',
+  mobileNetworkCode: '01',
+  locationAreaCode: '255',
+  cellId: '99999',
+  accessTechnology: 'lte', // optional
+  signalStrength: -55 // optional
+})
+```
 
 The function will return a promise, which will return the `location` from given geolocation service.
 
