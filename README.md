@@ -66,19 +66,6 @@ The returned value is a `locate()` function, which will be described in the next
 
 `info` is an object that should contain cell information, including `mobileNetworkCode`, `mobileCountryCode`, `locationAreaCode` and `cellId`. Additionally, information about the `accessTechnology` as well as `signalStrength` can be added for a more accurate position estimate, this is however optional.
 
-Here's an excample:
-
-```js
-locate({
-  mobileCountryCode: '240',
-  mobileNetworkCode: '01',
-  locationAreaCode: '255',
-  cellId: '99999',
-  accessTechnology: 'lte', // optional
-  signalStrength: -55 // optional
-})
-```
-
 The function will return a promise, which will return the `location` from given geolocation service.
 
 `location` is an object contains following properties:
@@ -97,8 +84,14 @@ const api = require('mobile-locator');
 
 const locate = api('google', { key: YOUR_GOOGLE_API_KEY });
 
-locate({ mcc: 460, mnc: 0, lac: 4219, cid: 20925 })
-  .then(location => console.log(JSON.stringify(location, null, 2)));
+locate({
+  mobileCountryCode: 460,
+  mobileNetworkCode: 0,
+  locationAreaCode: 4219,
+  cellId: 20925,
+  accessTechnology: 'gsm', // optional
+  signalStrength: -55 // optional
+}).then(location => console.log(JSON.stringify(location, null, 2)));
 ```
 
 The output would be:
@@ -118,24 +111,26 @@ Usage
 ```bash
 $ mobile-locator -h
 
-Usage: mobile-locator [options]
+Usage: cli [options]
 
 Locate geolocation information based on Cell base station data
 
+
 Options:
 
-  -h, --help                   output usage information
-  -V, --version                output the version number
-  -c, --cell <cell>            Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"
-  -e, --engine <engine>        Geolocation service engine. {cellocation, google, haoservice, mozilla, mylnikov, unwiredlabs, yandex}. Default: google
-  -a, --arguments <arguments>  Arguments for geolocation engine. e.g. "key:XXX,oid:123".
-  -m, --map <map>              Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}.
-  -v, --verbose                Verbose output.
-
+    -V, --version                  output the version number
+    -c, --cell <cell>              Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"
+    -e, --engine <engine>          Geolocation service engine. {cellocation, google, haoservice, mozilla, mylnikov, unwiredlabs, yandex}. Default: google (default: google)
+    -s, --signalStrength <number>  Signal strength [dBm], e.g. "-75".
+    -r, --radio <radioType>        Radio type/access technology. {gsm, cdma, wcdma, lte}. e.g. "lte".
+    -a, --arguments <arguments>    Arguments for geolocation engine. e.g. "key:XXX,oid:123".
+    -m, --map <map>                Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}. Default: google
+    -v, --verbose                  Verbose output.
+    -h, --help                     output usage information
 Examples:
 
-  $ mobile-locator -a "key:XXX" -c 460,0,4219,20925
-  $ mobile-locator -e cellocation -a "system:bd09" -m baidu -c 460,0,4219,20925
+    $ mobile-locator -a "key:XXX" -c 460,0,4219,20925
+    $ mobile-locator -e cellocation -a "system:bd09" -m baidu -c 460,0,4219,20925
 
 ```
 
