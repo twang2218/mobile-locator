@@ -53,7 +53,6 @@
     "bluebird": "^3.5.1",
     "commander": "^2.13.0",
     "debug": "^3.1.0",
-    "lodash": "^4.17.4",
     "request-promise": "^4.2.2"
   }
 }

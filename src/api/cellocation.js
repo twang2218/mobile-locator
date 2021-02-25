@@ -1,4 +1,3 @@
-const has = require('lodash/has');
 const Base = require('./base');
 
 const API = 'http://api.cellocation.com:81/cell/';
@@ -10,7 +9,7 @@ class Cellocation extends Base {
     if (options) {
       //  Coordinate System
       //  {'wgs84', 'gcj02', 'bd09'}
-      this.system = options.system ? options.system : 'wgs84';
+      this.system = options?.system || 'wgs84';
     }
   }
 
@@ -48,7 +47,7 @@ class Cellocation extends Base {
   }
 
   parseError(body) {
-    return has(body, 'error') ? body.error : body;
+    return body?.error || body;
   }
 }
 

@@ -1,4 +1,3 @@
-const has = require('lodash/has');
 const Base = require('./base');
 
 const API = 'http://api.haoservice.com/api/getlbs';
@@ -49,7 +48,7 @@ class HaoService extends Base {
   }
 
   parseError(body) {
-    return has(body, 'ErrCode') ? body.ErrCode : body;
+    return body?.ErrCode || body;
   }
 }
 

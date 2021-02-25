@@ -45,7 +45,7 @@ function setup() {
       /^(cellocation|google|haoservice|mozilla|mylnikov|unwiredlabs|yandex)$/i,
       'google',
     )
-    .option('-s, --signalStrength <number>', 'Signal strength [dBm], e.g. "-75".')
+    .option('-s, --signal <number>', 'Signal strength [dBm], e.g. "-75".')
     .option(
       '-r, --radio <string>',
       'Radio type/access technology. {gsm, cdma, wcdma, lte}. e.g. "lte".',
@@ -68,37 +68,42 @@ function setup() {
     .parse(process.argv);
 }
 
-function main() {
+async function main() {
+  if (!program.cell) {
+    console.error('Missing cell base station information.');
+    program.help();
+    return;
+  }
+
   if (program.verbose) {
     console.log('Geolocation engine: %j', program.engine);
+    console.log('cellInfo: %j', { ...program.cell, signalStrength: program.signal });
     program.arguments.verbose = true;
   }
-  const locate = api(program.engine, program.arguments);
-  if (program.cell) {
-    if (program.verbose) {
-      console.log('cellInfo: %j', { ...program.cell, signalStrength: program.signalStrength });
-    }
-    locate({ ...program.cell, signalStrength: program.signalStrength, accessTechnology: program.radio })
-      .then((location) => {
-        if (program.verbose || program.map) {
-          //  Verbose or need to show a map url
-          console.log('Location: %j', location);
-        } else {
-          //  output pure JSON
-          console.log(JSON.stringify(location));
-        }
 
-        if (program.map) {
-          const url = map(program.map, location);
-          console.log(`Map url: ${url}`);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        program.help();
-      });
-  } else {
-    console.error('Missing cell base station information.');
+  const locate = api(program.engine, program.arguments);
+
+  try {
+    const location = await locate({
+      ...program.cell,
+      signalStrength: program.signal,
+      accessTechnology: program.radio,
+    });
+
+    if (program.verbose || program.map) {
+      //  Verbose or need to show a map url
+      console.log('Location: %j', location);
+    } else {
+      //  output pure JSON
+      console.log(JSON.stringify(location));
+    }
+
+    if (program.map) {
+      const url = map(program.map, location);
+      console.log(`Map url: ${url}`);
+    }
+  } catch (error) {
+    console.error(error);
     program.help();
   }
 }

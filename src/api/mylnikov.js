@@ -1,4 +1,3 @@
-const has = require('lodash/has');
 const Base = require('./base');
 
 const API = 'https://api.mylnikov.org/geolocation/cell';
@@ -50,7 +49,7 @@ class Mylnikov extends Base {
   }
 
   parseError(body) {
-    return has(body, 'desc') ? body.desc : body;
+    return body?.desc || body;
   }
 }
 

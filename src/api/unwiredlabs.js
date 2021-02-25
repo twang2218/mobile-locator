@@ -1,4 +1,3 @@
-const has = require('lodash/has');
 const Base = require('./base');
 
 const API = 'https://unwiredlabs.com/v2/process.php';
@@ -59,7 +58,9 @@ class UnwiredLabs extends Base {
   }
 
   parseError(body) {
-    return has(body, 'status') && body.status === 'error' ? body.message : body;
+    return body?.status === 'error'
+      ? body.message
+      : body;
   }
 }
 

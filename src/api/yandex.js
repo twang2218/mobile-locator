@@ -1,4 +1,3 @@
-const has = require('lodash/has');
 const Base = require('./base');
 
 const API = 'http://api.lbs.yandex.net/geolocation';
@@ -58,13 +57,11 @@ class Yandex extends Base {
   }
 
   parseError(body) {
-    if (has(body, 'error')) {
-      return `[${body.error.code}] ${body.error.text}`;
-    }
+    const isErrorDefined = body?.error;
+    if (isErrorDefined) return `[${body.error.code}] ${body.error.text}`;
 
-    if (body.position.type === 'ip') {
-      return 'Cell not found.';
-    }
+    const isPositionTypeIp = body.position.type === 'ip'
+    if (isPositionTypeIp) return 'Cell not found.';
 
     return body;
   }

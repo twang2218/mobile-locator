@@ -1,4 +1,3 @@
-const has = require('lodash/has');
 const Base = require('./base');
 
 const API = 'https://www.googleapis.com/geolocation/v1/geolocate';
@@ -41,7 +40,7 @@ class GoogleGeolocation extends Base {
   }
 
   validate(body) {
-    return !has(body, 'error');
+    return !body?.error;
   }
 
   parseLocation(body) {
@@ -53,7 +52,7 @@ class GoogleGeolocation extends Base {
   }
 
   parseError(body) {
-    return has(body, 'error') ? body.error.errors[0].reason : body;
+    return body?.error?.errors[0]?.reason || body;
   }
 }
 

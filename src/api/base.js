@@ -4,15 +4,11 @@ const debug = require('debug')('mobile-locator');
 /* eslint-disable class-methods-use-this */
 class Base {
   constructor(options) {
-    if (options) {
-      if (options.verbose) {
-        request.debug = true;
-      }
-      if (options.timeout) {
-        this.timeout = options.timeout;
-      }
-    }
+    if (!options) return;
+    if (options.verbose) request.debug = true;
+    if (options.timeout) this.timeout = options.timeout;
   }
+
   getRequestSettings() {
     return {};
   }
@@ -33,45 +29,41 @@ class Base {
     return body;
   }
 
-  locate(cellInfo) {
-    //  Send request
-    const options = Object.assign({}, this.getRequestSettings(cellInfo), {
+  async locate(cellInfo) {
+    const options = {
+      ...this.getRequestSettings(cellInfo),
       resolveWithFullResponse: true,
       timeout: this.timeout,
-    });
+    };
 
-    return request(options)
-      .then((response) => {
-        const b = this.preprocessBody(response.body);
-        if (response.statusCode === 200) {
-          if (!this.validate(b)) {
-            //  Callback with error message
-            throw new Error(this.parseError(b));
-          } else {
-            //  Callback with location info
-            return this.parseLocation(b);
-          }
-        } else {
-          //  Callback with HTTP Status Error Code
-          throw new Error(`${response.statusCode}: ${response.statusMessage} (${this.parseError(b)})`);
-        }
-      })
-      .catch((error) => {
-        debug(error);
-        if (
-          error.message &&
-          (error.message.indexOf('ETIMEDOUT') >= 0 || error.message.indexOf('ESOCKETTIMEDOUT') >= 0)
-        ) {
-          if (error.connect === true) {
-            throw new Error('Request connection timeout.');
-          } else {
-            throw new Error('Request timeout.');
-          }
-        } else {
-          //  Callback with error
-          throw error;
-        }
-      });
+    try {
+      const { body, statusCode } = await request(options);
+
+      const isStatusCodeOk = statusCode === 200;
+      if (!isStatusCodeOk) {
+        throw new Error(`${response.statusCode}: ${response.statusMessage} (${this.parseError(b)})`);
+      }
+
+      const preProcessedBody = this.preprocessBody(body);
+      
+      const isPreProcessedBodyValid = this.validate(preProcessedBody);
+      if (!isPreProcessedBodyValid) throw new Error(this.parseError(b));
+
+      return this.parseLocation(preProcessedBody);
+    } catch (error) {
+      debug(error);
+
+      const isErrorMessageTimeOut = error?.message.indexOf('ETIMEDOUT') >= 0
+      const isErrorMessageSocketTimeOut = error?.message.indexOf('ESOCKETTIMEDOUT') >= 0
+      const isErrorMessageTimeoutRelated = isErrorMessageTimeOut || isErrorMessageSocketTimeOut
+
+      const isConnectionEstablished = error?.connect
+      const isRequestConnectionTimeoutError = isErrorMessageTimeoutRelated && isConnectionEstablished
+
+      if (isRequestConnectionTimeoutError) throw new Error('Request connection timeout.');
+      if (isErrorMessageTimeoutRelated) throw new Error('Request timeout.');
+      throw error;
+    }
   }
 }
 
