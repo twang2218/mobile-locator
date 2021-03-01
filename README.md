@@ -121,7 +121,7 @@ Options:
     -V, --version                  output the version number
     -c, --cell <string>            Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"
     -e, --engine <string>          Geolocation service engine. {cellocation, google, haoservice, mozilla, mylnikov, unwiredlabs, yandex}. Default: google (default: google)
-    -s, --signalStrength <number>  Signal strength [dBm], e.g. "-75".
+    -s, --signal <number>  Signal strength [dBm], e.g. "-75".
     -r, --radio <string>           Radio type/access technology. {gsm, cdma, wcdma, lte}. e.g. "lte".
     -a, --arguments <string>       Arguments for geolocation engine. e.g. "key:XXX,oid:123".
     -m, --map <string>             Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}. Default: google
@@ -138,7 +138,7 @@ By default, the Google Geolocation engine will be used.
 
 ```bash
 $ mobile-locator -a "key:GOOGLE_API_KEY" -c 460,0,4219,20925
-{"longitude":116.46679499999998,"latitude":39.9910226,"accuracy":606}
+{"longitude":116.46661859999998,"latitude":39.991583399999996,"accuracy":1098}
 ```
 
 With verbose option:
@@ -147,7 +147,8 @@ With verbose option:
 $ mobile-locator -a "key:AIzaSyAL2sfTLqUv9Rb3ercbtuu__PG2pS_4eDo" -c 460,0,4219,20925 -v
 Geolocation engine: "google"
 Cell: {"mcc":"460","mnc":"0","lac":"4219","cid":"20925"}
-Location: {"longitude":116.46679499999998,"latitude":39.9910226,"accuracy":606}
+# ...request information
+Location: {"longitude":116.46661859999998,"latitude":39.991583399999996,"accuracy":1098}
 ```
 
 More complex example:
@@ -160,7 +161,8 @@ More complex example:
 ```bash
 $ mobile-locator -e cellocation -a 'system:bd09' -m baidu -v -c 460,0,4219,20925
 Geolocation engine: "cellocation"
-Cell: {"mcc":"460","mnc":"0","lac":"4219","cid":"20925"}
-Location: {"longitude":"116.479653","latitude":"39.997967","accuracy":"100","address":"北京市朝阳区望京街道望京园402号楼;广顺南大街与阜安西路路口东北109米"}
-Map url: http://api.map.baidu.com/marker?location=39.997967,116.479653&title=_&content=北京市朝阳区望京街道望京园402号楼;广顺南大街与阜安西路路口东北109米&output=html&autoOpen=true
+CellInfo: {"mobileCountryCode":"460","mobileNetworkCode":"0","locationAreaCode":"4219","cellId":"20925"}
+# ...request information
+Location: {"longitude":116.47919759234648,"latitude":40.00003410860828,"accuracy":98,"address":"北京市朝阳区望京街道望京园305号楼;阜通西大街与阜荣街路口南31米"}
+Map url: http://api.map.baidu.com/marker?location=40.00003410860828,116.47919759234648&title=_&content=%E5%8C%97%E4%BA%AC%E5%B8%82%E6%9C%9D%E9%98%B3%E5%8C%BA%E6%9C%9B%E4%BA%AC%E8%A1%97%E9%81%93%E6%9C%9B%E4%BA%AC%E5%9B%AD305%E5%8F%B7%E6%A5%BC%3B%E9%98%9C%E9%80%9A%E8%A5%BF%E5%A4%A7%E8%A1%97%E4%B8%8E%E9%98%9C%E8%8D%A3%E8%A1%97%E8%B7%AF%E5%8F%A3%E5%8D%9731%E7%B1%B3&output=html&autoOpen=tru
 ```
