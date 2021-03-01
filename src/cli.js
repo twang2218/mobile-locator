@@ -77,7 +77,7 @@ async function main() {
 
   if (program.verbose) {
     console.log('Geolocation engine: %j', program.engine);
-    console.log('cellInfo: %j', { ...program.cell, signalStrength: program.signal });
+    console.log('CellInfo: %j', { ...program.cell, signalStrength: program.signal });
     program.arguments.verbose = true;
   }
 
