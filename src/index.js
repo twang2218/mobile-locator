@@ -2,11 +2,9 @@
 const Apis = {
   cellocation: require('./api/cellocation'),
   google: require('./api/google-geolocation'),
-  gpsspg: require('./api/gpsspg'),
   haoservice: require('./api/haoservice'),
   mozilla: require('./api/mozilla-geolocation'),
   mylnikov: require('./api/mylnikov'),
-  opencellid: require('./api/opencellid'),
   unwiredlabs: require('./api/unwiredlabs'),
   yandex: require('./api/yandex'),
 };

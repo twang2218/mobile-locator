@@ -1,4 +1,3 @@
-const has = require('lodash/has');
 const Base = require('./base');
 
 const API = 'http://api.haoservice.com/api/getlbs';
@@ -13,15 +12,20 @@ class HaoService extends Base {
     }
   }
 
-  getRequestSettings(cell) {
+  getRequestSettings({
+    cellId,
+    locationAreaCode,
+    mobileCountryCode,
+    mobileNetworkCode,
+  }) {
     return {
       uri: API,
       qs: {
         oid: this.oid,
-        mcc: cell.mcc,
-        mnc: cell.mnc,
-        lac: cell.lac,
-        cell_id: cell.cid,
+        mcc: mobileNetworkCode,
+        mnc: mobileCountryCode,
+        lac: locationAreaCode,
+        cell_id: cellId,
         key: this.key,
         type: this.system || 2,
         output: 'json',
@@ -44,7 +48,7 @@ class HaoService extends Base {
   }
 
   parseError(body) {
-    return has(body, 'ErrCode') ? body.ErrCode : body;
+    return body?.ErrCode || body;
   }
 }
 

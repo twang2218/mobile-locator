@@ -5,11 +5,8 @@ const debug = require('debug')('mobile-locator');
 
 const config = {
   google_api_key: process.env.GOOGLE_API_KEY,
-  gpsspg_oid: process.env.GPSSPG_OID,
-  gpsspg_key: process.env.GPSSPG_KEY,
   haoservice_key: process.env.HAOSERVICE_KEY,
   mozilla_api_key: process.env.MOZILLA_API_KEY,
-  opencellid_key: process.env.OPENCELLID_KEY,
   unwiredlabs_token: process.env.UNWIREDLABS_TOKEN,
   yandex_key: process.env.YANDEX_KEY,
 };
@@ -123,11 +120,9 @@ describe('Geolocation Engine', () => {
     [
       'cellocation',
       'google',
-      'gpsspg',
       'haoservice',
       'mozilla',
       'mylnikov',
-      'opencellid',
       'unwiredlabs',
       'yandex',
     ].forEach((name) => {
@@ -150,11 +145,6 @@ describe('Geolocation Engine', () => {
     checkEngine('google', { key: config.google_api_key }, cells[1]);
   });
 
-  //  GPSspg
-  describe.skip('GPSspg.com', () => {
-    checkEngine('gpsspg', { oid: config.gpsspg_oid, key: config.gpsspg_key }, cells[5]);
-  });
-
   //  HaoService
   describe.skip('HaoService.com', () => {
     checkEngine('haoservice', { key: config.haoservice_key }, cells[0]);
@@ -171,11 +161,6 @@ describe('Geolocation Engine', () => {
     checkEngine('mylnikov', null, cells[1]);
     checkEngine('mylnikov', { data: 'open' }, cells[2]);
     checkEngine('mylnikov', null, cells[3]);
-  });
-
-  //  OpenCellID
-  describe('OpenCellID', () => {
-    checkEngine('opencellid', { key: config.opencellid_key }, cells[2]);
   });
 
   //  UnwiredLabs

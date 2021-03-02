@@ -9,7 +9,12 @@ function parseCell(info) {
   const result = {};
   const arr = info.split(',');
   if (arr.length === 4) {
-    [result.mcc, result.mnc, result.lac, result.cid] = arr;
+    [
+      result.mobileCountryCode,
+      result.mobileNetworkCode,
+      result.locationAreaCode,
+      result.cellId,
+    ] = arr;
   }
   return result;
 }
@@ -30,19 +35,25 @@ function setup() {
     .description('Locate geolocation information based on Cell base station data')
     .version(pkinfo.version)
     .option(
-      '-c, --cell <cell>',
+      '-c, --cell <string>',
       'Cell tower base station information in format "MCC,MNC,LAC,CID". "-c 460,0,4219,20925"',
       parseCell,
     )
     .option(
-      '-e, --engine <engine>',
-      'Geolocation service engine. {cellocation, google, gpsspg, haoservice, mozilla, mylnikov, opencellid, unwiredlabs, yandex}. Default: google',
-      /^(cellocation|google|gpsspg|haoservice|mozilla|mylnikov|opencellid|unwiredlabs|yandex)$/i,
+      '-e, --engine <string>',
+      'Geolocation service engine. {cellocation, google, haoservice, mozilla, mylnikov, unwiredlabs, yandex}. Default: google',
+      /^(cellocation|google|haoservice|mozilla|mylnikov|unwiredlabs|yandex)$/i,
       'google',
     )
-    .option('-a, --arguments <arguments>', 'Arguments for geolocation engine. e.g. "key:XXX,oid:123".', parseArguments)
+    .option('-s, --signal <number>', 'Signal strength [dBm], e.g. "-75".')
     .option(
-      '-m, --map <map>',
+      '-r, --radio <string>',
+      'Radio type/access technology. {gsm, cdma, wcdma, lte}. e.g. "lte".',
+      /^(gsm|cdma|wcdma|lte)$/i,
+    )
+    .option('-a, --arguments <string>', 'Arguments for geolocation engine. e.g. "key:XXX,oid:123".', parseArguments)
+    .option(
+      '-m, --map <string>',
       'Map service. {google, bing, openstreetmap, google.cn, bing.cn, baidu}. Default: google',
       /^(google|bing|google\.cn|bing\.cn|openstreetmap|baidu)$/i,
     )
@@ -57,37 +68,42 @@ function setup() {
     .parse(process.argv);
 }
 
-function main() {
+async function main() {
+  if (!program.cell) {
+    console.error('Missing cell base station information.');
+    program.help();
+    return;
+  }
+
   if (program.verbose) {
     console.log('Geolocation engine: %j', program.engine);
+    console.log('CellInfo: %j', { ...program.cell, signalStrength: program.signal });
     program.arguments.verbose = true;
   }
-  const locate = api(program.engine, program.arguments);
-  if (program.cell) {
-    if (program.verbose) {
-      console.log('Cell: %j', program.cell);
-    }
-    locate(program.cell)
-      .then((location) => {
-        if (program.verbose || program.map) {
-          //  Verbose or need to show a map url
-          console.log('Location: %j', location);
-        } else {
-          //  output pure JSON
-          console.log(JSON.stringify(location));
-        }
 
-        if (program.map) {
-          const url = map(program.map, location);
-          console.log(`Map url: ${url}`);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        program.help();
-      });
-  } else {
-    console.error('Missing cell base station information.');
+  const locate = api(program.engine, program.arguments);
+
+  try {
+    const location = await locate({
+      ...program.cell,
+      signalStrength: program.signal,
+      accessTechnology: program.radio,
+    });
+
+    if (program.verbose || program.map) {
+      //  Verbose or need to show a map url
+      console.log('Location: %j', location);
+    } else {
+      //  output pure JSON
+      console.log(JSON.stringify(location));
+    }
+
+    if (program.map) {
+      const url = map(program.map, location);
+      console.log(`Map url: ${url}`);
+    }
+  } catch (error) {
+    console.error(error);
     program.help();
   }
 }

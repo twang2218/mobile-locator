@@ -1,4 +1,3 @@
-const has = require('lodash/has');
 const Base = require('./base');
 
 const API = 'https://www.googleapis.com/geolocation/v1/geolocate';
@@ -12,7 +11,14 @@ class GoogleGeolocation extends Base {
     }
   }
 
-  getRequestSettings(cell) {
+  getRequestSettings({
+    cellId,
+    locationAreaCode,
+    mobileCountryCode,
+    mobileNetworkCode,
+    signalStrength,
+    accessTechnology,
+  }) {
     return {
       method: 'POST',
       uri: API,
@@ -20,19 +26,21 @@ class GoogleGeolocation extends Base {
         key: this.key,
       },
       json: {
+        ...(accessTechnology && { radioType: accessTechnology }),
         considerIp: false,
         cellTowers: [{
-          cellId: cell.cid,
-          locationAreaCode: cell.lac,
-          mobileCountryCode: cell.mcc,
-          mobileNetworkCode: cell.mnc,
+          cellId,
+          locationAreaCode,
+          mobileCountryCode,
+          mobileNetworkCode,
+          ...(signalStrength && { signalStrength }),
         }],
       },
     };
   }
 
   validate(body) {
-    return !has(body, 'error');
+    return !body?.error;
   }
 
   parseLocation(body) {
@@ -44,7 +52,7 @@ class GoogleGeolocation extends Base {
   }
 
   parseError(body) {
-    return has(body, 'error') ? body.error.errors[0].reason : body;
+    return body?.error?.errors[0]?.reason || body;
   }
 }
 
