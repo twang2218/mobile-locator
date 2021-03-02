@@ -9,7 +9,7 @@ class Cellocation extends Base {
     if (options) {
       //  Coordinate System
       //  {'wgs84', 'gcj02', 'bd09'}
-      this.system = options?.system || 'wgs84';
+      this.system = options.system || 'wgs84';
     }
   }
 
